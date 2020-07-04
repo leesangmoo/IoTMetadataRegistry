@@ -1,0 +1,3 @@
+show databases;
+show tables;
+desc device_register_table;
