@@ -91,8 +91,8 @@
 		<table id="tb1" width="100%" border="1">
 				<tr>
 					<th>Id</th>
-					<th>Now_timestamp</th>
-					<th>Devicetype</th>
+					<th>Registration time</th>
+					<th>Device type</th>
 					<th>Manufacturer</th>
 					<th>Category</th>
 					<th>Detail</th>
@@ -104,7 +104,7 @@
 				%>
 				<tr>
 					<td><%= dc.getId() %></td>
-					<td><%= dc.getNowtimestamp() %></td>
+					<td><%= dc.getregistration_time() %></td>
 					<td><%= dc.getDevice_type() %></td>
 					<td><%= dc.getManufacturer() %></td>
 					<td><%= dc.getCategory()%></td>

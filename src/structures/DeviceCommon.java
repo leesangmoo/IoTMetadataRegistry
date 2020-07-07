@@ -2,7 +2,7 @@ package structures;
 
 public class DeviceCommon {
 	private String id;
-	private String now_timestamp;
+	private String registration_time;
 	private String device_type;
 	private String manufacturer;
 	private String category;
@@ -11,9 +11,9 @@ public class DeviceCommon {
 		this("","","","","");
 	}
 	
-	public DeviceCommon(String id, String now_timestamp, String device_type, String manufacturer,String category) {
+	public DeviceCommon(String id, String registration_time, String device_type, String manufacturer,String category) {
 		this.id = id;
-		this.now_timestamp = now_timestamp;
+		this.registration_time = registration_time;
 		this.device_type = device_type;
 		this.manufacturer = manufacturer;
 		this.category = category;
@@ -26,12 +26,12 @@ public class DeviceCommon {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getNowtimestamp() {
-		return now_timestamp;
+	public String getregistration_time() {
+		return registration_time;
 	}
 
-	public void setNowtimestamp(String now_timestamp) {
-		this.now_timestamp = now_timestamp;
+	public void setregistration_time(String registration_time) {
+		this.registration_time = registration_time;
 	}
 
 	public String getDevice_type() {
@@ -59,7 +59,7 @@ public class DeviceCommon {
 	}
 	
 	public String toString() {
-		return this.id + " / " + this.now_timestamp + " / " + this.device_type + " / " + this.manufacturer + " / " 
+		return this.id + " / " + this.registration_time + " / " + this.device_type + " / " + this.manufacturer + " / " 
 				+ this.category + " / ";
 	}
 	

@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
 import structures.*;
 
 public class FileManager {
-	public static String JSON_FILENAME = "C:/Users/Dsem/Desktop/기타 프로그램/jsontest/json11.json";
+	public static String JSON_FILENAME = "C:/Users/DSEM/Desktop/기타 프로그램/jsontest/json11.json";
 	public static String ar[]; // key
 	public static String ar2[]; // value
 	public static String Id;

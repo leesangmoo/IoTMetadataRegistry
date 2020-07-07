@@ -90,7 +90,7 @@
 				<td><input type="text" class="InputText" name="usrid1" placeholder="입력" style="width:300px;height:30px;" /></td>
 			</tr>
 			<tr>
-				<th>Device_type</th>
+				<th>Device type</th>
 				<td><input type="text" class="InputText" name="dv1" placeholder="입력" style="width:300px;height:30px;" /></td>
 			</tr>
 			<tr>

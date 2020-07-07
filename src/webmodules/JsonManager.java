@@ -13,7 +13,7 @@ public class JsonManager {
 	public static JSONArray devarr;
 	
 	public JsonManager() {
-		this.filename = "C:/Users/Dsem/Desktop/기타 프로그램/jsontest/json11.json";
+		this.filename = "C:/Users/DSEM/Desktop/기타 프로그램/jsontest/json11.json";
 		this.devarr = null;
 	}
 
@@ -65,14 +65,14 @@ public class JsonManager {
 
 		JSONObject dev = new JSONObject();
 		dev.put("id", ds.getId());
-
+	
 		for (int i=0; i<ds.getKeyList().size();i++) {
 			dev.put(ds.getKey(i), ds.getValue(i));
 		}
 		System.out.println(dev.toJSONString());
 		
 		int obj_index = findObjectFromArray(ds.getId());
-		if (obj_index > 0) {
+		if (obj_index > -1) {
 			this.devarr.remove(obj_index);
 		}
 		this.devarr.add(dev);
@@ -89,6 +89,19 @@ public class JsonManager {
 		}
 		return -1;
 	}
+	public void deleteObject(DeviceSpecific id) {
+		this.readJsonFile();		
+		
+		for (int i=0; i<this.devarr.size(); i++) {
+			JSONObject dev_in_arr = (JSONObject) this.devarr.get(i);
+			String dev_id = (String) dev_in_arr.get("id");
+			if (dev_id.equals(id.getId())) {
+				this.devarr.remove(i);
+				System.out.println("delete test" + "///////" + devarr);
+				this.writeJsonFile();
+			}
+		}
+	}
 	public void replaceJSONFile(DeviceSpecific ds) {
 		System.out.println("*** File Read");
 		this.readJsonFile();
@@ -98,6 +111,7 @@ public class JsonManager {
 		
 		System.out.println("*** File Write");
 		this.writeJsonFile();
+		
 	}
 	public static void main(String[] args) {
 		

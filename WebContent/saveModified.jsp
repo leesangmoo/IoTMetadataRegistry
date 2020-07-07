@@ -1,26 +1,48 @@
 
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ page import="java.sql.*"%>
 <%@page import="java.io.*, java.util.*, structures.*, webmodules.*"%>
 <%//actionModification.jsp %>
+
 <%
 	String id = (String)request.getParameter("id");
 	System.out.println(id);
+	String device_type = (String)request.getParameter("device_type");
+	String manufacturer = (String)request.getParameter("manufacturer");
+	String category = (String)request.getParameter("category");
+
+	request.setCharacterEncoding("euc-kr");
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+
+	Class.forName("com.mysql.jdbc.Driver");
+
+	try{
+	String jdbcDriver = "jdbc:mysql://localhost:3306/jsptest?"+"useUnicode=true&characterEncoding=euckr";
+	String dbUser = "jspid";
+	String dbPass = "jsppass";
+
+	conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
+
+	pstmt = conn.prepareStatement("update device_register_table set device_type=?, manufacturer=?, category=? where id=?");
+	pstmt.setString(1, device_type);
+	pstmt.setString(2, manufacturer);
+	pstmt.setString(3, category);
+	pstmt.setString(4, id);
+	pstmt.executeUpdate();
+	//pstmt.setString(5, time);
+
+	}finally{
+		if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+		if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+	 	}
+
+	%>
+	
+	<%
 	ArrayList<String> new_keylist = new ArrayList<String>();
 	ArrayList<String> new_valuelist = new ArrayList<String>();
-	
-	
-	// parameter로 모든 key value를 받아 arraylist로 넣기
-	
-	// String id = (String)request.getParameter("id");
-	// String device_type = (String)request.getParameter("device_type");
-	// String manufacturer = (String)request.getParameter("manufacturer");
-	// String category = (String)request.getParameter("category");
-	
-	
-	//그냥 싹다 받아온다.
-	
 	
 	String DSize = request.getParameter("Dsize"); //ID 값을 제외한 JSON 객체 수 
 	String key [] = new String [Integer.valueOf(DSize)];
@@ -59,48 +81,23 @@
 	JsonManager jm = new JsonManager();
 	jm.replaceJSONFile(new_ds);
 	
-	//FileManager fm = new FileManager();
-	//ArrayList<DeviceSpecific> dslist = fm.getAllDeviceSpecific();
-	//dslist = fm.replaceDeviceSpecific(dslist, new_ds);
-	//fm.storeAllDeviceSpecific(dslist);
-	
 	request.setCharacterEncoding("UTF-8");
-	//String jsonIn = request.getParameter("jsonData2");
 	
-	//String dest = "C:/Users/Dsem/Desktop/기타 프로그램/jsontest/json9.json";
-	// String jsonIn = request.getParameter("jsonData");
-	//System.out.println("test : " + jsonIn);
-
-	//StringWriter str = new StringWriter();
-	//PrintWriter pw = new PrintWriter(str);
-	//pw.println(jsonIn);
-
-	//StringReader strReader = new StringReader(str.toString());
-	//FileWriter file = new FileWriter(dest, true);
-	//file.append(str.toString());
-	//file.close();
 %>
 
 <html>
-
 <head>
-	
-	<script type="text/javascript">   
+<script type="text/javascript">   
 		function goBack(){
 			window.history.back();
 		}
 		window.location.replace("deviceDetail.jsp?id=<%= id %> ");
 	</script>
-	    
-	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-	
-	<title>Device metadata modification page</title>
-
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Device metadata modification page</title>
 </head>
-
 <body>
-	수정 데이터 저장 페이지
+수정 데이터 저장 페이지
 </body>
-
 </html>
 

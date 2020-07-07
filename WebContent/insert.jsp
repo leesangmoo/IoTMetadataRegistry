@@ -70,7 +70,7 @@
 </html>
 
 <%
-
+request.setCharacterEncoding("UTF-8");
 	String id = request.getParameter("usrid1");
 	Timestamp now_timestamp = new Timestamp(System.currentTimeMillis());
 	String dv = request.getParameter("dv1");
@@ -89,7 +89,7 @@
         Class.forName( "com.mysql.jdbc.Driver");
         conn=DriverManager.getConnection(jdbcUrl,dbId ,dbPass );
         
-        String sql = "insert into device_register_table (id, now_timestamp, device_type,manufacturer,category) values (?,?,?,?,?)";
+        String sql = "insert into device_register_table (id, registration_time, device_type,manufacturer,category) values (?,?,?,?,?)";
         pstmt = conn.prepareStatement(sql);
         
         pstmt.setString(1, id);

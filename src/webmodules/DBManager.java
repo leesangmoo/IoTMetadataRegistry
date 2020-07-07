@@ -52,7 +52,7 @@ public class DBManager {
 		ArrayList<DeviceCommon> devList = new ArrayList<DeviceCommon>(); 
 		try {
 			ResultSet rs = null;
-			String sql = "select id, now_timestamp, device_type, manufacturer,"
+			String sql = "select id, registration_time, device_type, manufacturer,"
 						+ "category from device_register_table";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
@@ -60,7 +60,7 @@ public class DBManager {
 			while (rs.next()) {
 				DeviceCommon dc = new DeviceCommon();
 				dc.setId(rs.getString(1));
-				dc.setNowtimestamp(rs.getString(2));
+				dc.setregistration_time(rs.getString(2));
 				dc.setDevice_type(rs.getString(3));
 				dc.setManufacturer(rs.getString(4));
 				dc.setCategory(rs.getString(5));
@@ -82,7 +82,7 @@ public class DBManager {
 		DeviceCommon dc = new DeviceCommon(); 
 		try {
 			ResultSet rs = null;
-			String sql = "select id, now_timestamp, device_type, manufacturer,"
+			String sql = "select id, registration_time, device_type, manufacturer,"
 						+ "category from device_register_table"
 						+ " where id = '" + device_id + "';";
 			
@@ -93,7 +93,7 @@ public class DBManager {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				dc.setId(rs.getString(1));
-				dc.setNowtimestamp(rs.getString(2));
+				dc.setregistration_time(rs.getString(2));
 				dc.setDevice_type(rs.getString(3));
 				dc.setManufacturer(rs.getString(4));
 				dc.setCategory(rs.getString(5));

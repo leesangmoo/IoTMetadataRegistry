@@ -95,6 +95,7 @@
 		<h1>Device Detail </h1>
 			<button type="button" onclick="location.href='deviceList.jsp'">디바이스 목록 보기</button>
 			<button type="button" onclick="location.href='deviceModification.jsp?id=<%=dc.getId()%>'">수정</button>
+			<button type="button" onclick="location.href='actionDetail.jsp?id=<%=dc.getId()%>'">삭제</button>
 			<button type="button" onclick="goBack();">뒤로 가기</button>
 	</div>
 	<h2>Device ID : <%= dc.getId() %> </h2>
@@ -106,9 +107,9 @@
 				<input type="text" class="no-border" id="id" name="id" value="<%= dc.getId() %>" style = "text-align : center;"></td>
 			</tr>
 			<tr>
-				<th>time</th>
+				<th>Registration time</th>
 				<td> 
-				<input type="text" class="no-border" id="time" name="time" value="<%= dc.getNowtimestamp() %>" style = "text-align : center;"></td>
+				<input type="text" class="no-border" id="time" name="time" value="<%= dc.getregistration_time() %>" style = "text-align : center;"></td>
 			</tr>
 			<tr>
 				<th>Devicetype</th>
