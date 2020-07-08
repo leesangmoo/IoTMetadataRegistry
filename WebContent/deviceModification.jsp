@@ -83,7 +83,7 @@
 
 	<body>
 	<div class="MainContent">
-	<form name='myform6' action="saveModified.jsp" method="POST">
+	<form name='myform6' action="actionModification.jsp" method="POST">
 		<div class="MenuBar">
 			<h1> Modifying Device Metadata </h1>
 			<button type="button" onclick="location.href='deviceList.jsp'">디바이스 목록 보기</button>

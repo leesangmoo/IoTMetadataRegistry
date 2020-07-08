@@ -54,7 +54,7 @@
 			return false;
 		}
 		if (no == 1) {
-			document.myform.action = "insert.jsp";
+			document.myform.action = "actionRegistration.jsp";
 		} else if (no == 2) {
 			document.myform.action = "test2.jsp";
 		} else if (no == 3) {

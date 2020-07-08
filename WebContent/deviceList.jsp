@@ -84,7 +84,7 @@
 	<form name='myform' action="db2.jsp" method="post">
 	<div class="MenuBar">
 			 <h1>Device List</h1>
-				<button type="button" onclick="location.href='deviceRegister.jsp'">디바이스
+				<button type="button" onclick="location.href='deviceRegistration.jsp'">디바이스
 					등록하기</button>
 				<button type="button" onclick="location.href='deviceList.jsp'">디바이스 목록 보기</button>
 	</div>
