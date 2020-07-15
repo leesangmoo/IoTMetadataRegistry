@@ -6,13 +6,13 @@
 <%//actionModification.jsp %>
 
 <%
+	request.setCharacterEncoding("UTF-8");
 	String id = (String)request.getParameter("id");
 	System.out.println(id);
 	String device_type = (String)request.getParameter("device_type");
 	String manufacturer = (String)request.getParameter("manufacturer");
 	String category = (String)request.getParameter("category");
 
-	request.setCharacterEncoding("euc-kr");
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 

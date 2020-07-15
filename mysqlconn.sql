@@ -9,3 +9,10 @@ create table device_register_table (
 );
 
 drop table device_register_table;
+
+create table specific_metadata_table (
+	id varchar(20) not null,
+	json_object varchar(50) not null,
+);
+
+
