@@ -18,7 +18,7 @@
 <head>
 <style>
  	h1 	  {
-  	  	border-collapse: collapse;
+  	  	border-collapse: collapse; 
     }
 	table {
 		width: 80%;

@@ -10,12 +10,12 @@ public class DBManager {
 	public static String DEFAULT_DATABASE = "jsptest";
 	public static String DEFAULT_ID = "jspid";
 	public static String DEFAULT_PW = "jsppass";
-
+	public static ArrayList<String> kl = new ArrayList<String>();
 	public Connection conn;
 	public String jdbcDriver; 
 	public String dbUser;
 	public String dbPwd;
-
+	
 	public DBManager() {
 		this.conn = null;
 		
@@ -108,4 +108,31 @@ public class DBManager {
 		return dc;
 	}
 	
+	public DeviceSpecific getDeviceSpecific(String device_id) {
+		DeviceSpecific ds = new DeviceSpecific(); 
+		try {
+			ResultSet rs = null;
+			String sql = "select id, metadata_key,"
+					+"metadata_value from specific_metadata"
+					+" where id = '" + device_id + "';";
+			
+			System.out.println(sql);
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			int index = 0;
+			while (rs.next()) {
+				ds.setId(rs.getString(1));
+				ds.add(rs.getString(2), rs.getString(3));
+				
+			}
+			rs.close();
+			pstmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return ds;
+	}
 }

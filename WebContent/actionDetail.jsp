@@ -29,13 +29,31 @@ import="java.util.*, webmodules.*, structures.*" %>
 					} catch (SQLException ex) {
 					}
 			}
-			//jsonManager
-			JsonManager jm = new JsonManager();
-		
-			DeviceSpecific ds = new DeviceSpecific();
-			ds.setId(send_id);
-			//jm.replaceJSONFile(ds);
-			jm.deleteObject(ds);
+		%>
+		<%
+			Connection conn2 = null;
+			PreparedStatement pstmt2 = null;
+			Class.forName("com.mysql.jdbc.Driver");
+			try {
+				String jdbcDriver = "jdbc:mysql://localhost:3306/jsptest?useUnicode=true&characterEncoding=utf8";
+				String dbUser = "jspid";
+				String dbPass = "jsppass";
+				conn2 = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
+				pstmt2 = conn2.prepareStatement("DELETE FROM specific_metadata WHERE id=?");
+				pstmt2.setString(1, send_id);
+				pstmt2.executeUpdate();
+			} finally {
+				if (pstmt2 != null)
+					try {
+						pstmt2.close();
+					} catch (SQLException ex) {
+					}
+				if (conn2 != null)
+					try {
+						conn2.close();
+					} catch (SQLException ex) {
+					}
+			}
 		%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

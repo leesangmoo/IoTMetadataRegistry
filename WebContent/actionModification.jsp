@@ -5,6 +5,7 @@
 <%@page import="java.io.*, java.util.*, structures.*, webmodules.*"%>
 <%//actionModification.jsp %>
 
+<!-- Global metadata 수정 -->
 <%
 	request.setCharacterEncoding("UTF-8");
 	String id = (String)request.getParameter("id");
@@ -39,8 +40,12 @@
 	 	}
 
 	%>
-	
+<!-- specific metadata 입력 -->	
 	<%
+	Connection conn2 = null;
+	PreparedStatement pstmt2 = null;
+	request.setCharacterEncoding("UTF-8");
+
 	ArrayList<String> new_keylist = new ArrayList<String>();
 	ArrayList<String> new_valuelist = new ArrayList<String>();
 	
@@ -65,23 +70,53 @@
 				System.out.print("  added");	
 			}
 		}
-//		key [i] = request.getParameter("Dkey" + i);
-//		value [i]= request.getParameter("Dvalue" + i);
-//		new_keylist.add(key[i]);
-//		new_valuelist.add(value[i]);
-		
 		System.out.println();
 	}
-	
 	DeviceSpecific new_ds = new DeviceSpecific();
-	new_ds.setId(id);
-	new_ds.setKeyList(new_keylist);
-	new_ds.setValueList(new_valuelist);
 	
-	JsonManager jm = new JsonManager();
-	jm.replaceJSONFile(new_ds);
-	
-	request.setCharacterEncoding("UTF-8");
+	try{
+	 DBManager dbm = new DBManager();
+	 String jdbcUrl= "jdbc:mysql://localhost:3306/jsptest" ;
+     String dbId="jspid";
+     String dbPass= "jsppass";
+
+     Class.forName("com.mysql.jdbc.Driver");
+     conn2=DriverManager.getConnection(jdbcUrl,dbId ,dbPass );
+ 	
+     pstmt2 = conn2.prepareStatement("DELETE FROM specific_metadata WHERE id=?");
+	 pstmt2.setString(1, id);
+	 pstmt2.executeUpdate();
+     
+     String sql = "insert into specific_metadata (id, metadata_key, metadata_value) values (?,?,?) ON DUPLICATE KEY UPDATE id=?, metadata_key=?, metadata_value=?";
+
+     pstmt2 = conn2.prepareStatement(sql);
+    
+     for(int i = 0; i < new_keylist.size();i++){
+    		 pstmt2.setString(1, id);
+             pstmt2.setString(2, new_keylist.get(i));
+             pstmt2.setString(3, new_valuelist.get(i));
+             pstmt2.setString(4, id);
+             pstmt2.setString(5, new_keylist.get(i));
+             pstmt2.setString(6, new_valuelist.get(i));
+             pstmt2.executeUpdate();    		 
+     }
+        System.out.println("----------------------------------->>> 디바이스 등록 완료");
+     
+}catch(Exception e){
+        e.printStackTrace();
+        System.out.println("----------------------------------->>> 디바이스 등록 실패");
+}finally{ //리소스 해제
+	  if(pstmt2 != null)
+		  try{
+			  pstmt2.close();
+		  }catch(SQLException sqle){}
+	if(conn2 != null){
+		try{
+			conn2.close();
+		}catch(SQLException sqle){}
+	}
+}
+
 	
 %>
 

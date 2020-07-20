@@ -10,11 +10,8 @@
 	DBManager dbm = new DBManager();
 	dbm.connect();
 	DeviceCommon dc = dbm.getDeviceCommon(device_id);
+	DeviceSpecific ds = dbm.getDeviceSpecific(device_id);
 	dbm.disconnect();
-	
-	FileManager fm =new FileManager();
-	DeviceSpecific ds = fm.getDeviceSpecific(device_id);
-
 	for(int i=0; i<ds.size(); i++) {
 		
 		System.out.println("key #" + (i+1) + " : " + ds.getKey(i));
