@@ -49,7 +49,7 @@
 	ArrayList<String> new_keylist = new ArrayList<String>();
 	ArrayList<String> new_valuelist = new ArrayList<String>();
 	
-	String DSize = request.getParameter("Dsize"); //ID 값을 제외한 JSON 객체 수 
+	String DSize = request.getParameter("Dsize"); //ID 값을 제외한 JSON 객체 수 ㅇ
 	String key [] = new String [Integer.valueOf(DSize)];
 	String value [] = new String [Integer.valueOf(DSize)];
 
