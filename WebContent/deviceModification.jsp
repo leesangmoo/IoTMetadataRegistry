@@ -46,6 +46,10 @@
 				border: 1px solid #444444;
 				padding: 5px;
 			}
+			#append_row{
+			float : left;
+			margin : 5px;
+			}
 			.inputText {
 				width: 95%;
 				text-align : center;
@@ -66,7 +70,8 @@
 				width:600px; margin-left: -300px;		 
 				height:100%; 
 				text-align:center;
-			}				
+			}	
+						
 		</style>
 		
 		<script type="text/javascript">   
