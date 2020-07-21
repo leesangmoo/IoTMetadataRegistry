@@ -109,7 +109,12 @@
 				<input type="text" class="no-border" id="time" name="time" value="<%= dc.getregistration_time() %>" style = "text-align : center;"></td>
 			</tr>
 			<tr>
-				<th>Devicetype</th>
+				<th>Model name</th>
+				<td> 
+				<input type="text" class="no-border" id="model_name" name="model_name" value="<%= dc.getmodel_name() %>" style = "text-align : center;"></td>
+			</tr>
+			<tr>
+				<th>Device type</th>
 				<td><input type="text" class="no-border" id="device_type" name="device_type" value="<%= dc.getDevice_type() %>" style = "text-align : center;"></td>
 			</tr>
 			<tr>

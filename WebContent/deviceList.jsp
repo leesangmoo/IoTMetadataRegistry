@@ -21,7 +21,7 @@
   	  	border-collapse: collapse; 
     }
 	table {
-		width: 80%;
+		width: 85%;
 		margin-left: auto;
 		margin-right: auto;
 		border: 1px solid #444444;
@@ -92,6 +92,7 @@
 				<tr>
 					<th>Id</th>
 					<th>Registration time</th>
+					<th>Model name</th>
 					<th>Device type</th>
 					<th>Manufacturer</th>
 					<th>Category</th>
@@ -105,6 +106,7 @@
 				<tr>
 					<td><%= dc.getId() %></td>
 					<td><%= dc.getregistration_time() %></td>
+					<td><%= dc.getmodel_name()%></td>
 					<td><%= dc.getDevice_type() %></td>
 					<td><%= dc.getManufacturer() %></td>
 					<td><%= dc.getCategory()%></td>

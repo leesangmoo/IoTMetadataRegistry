@@ -1,30 +1,39 @@
 package structures;
 
 public class DeviceCommon {
-	private String id;
+	private int id;
+	private String model_name;
 	private String registration_time;
 	private String device_type;
 	private String manufacturer;
 	private String category;
 
 	public DeviceCommon() {
-		this("","","","","");
+		this(0,"","","","","");
 	}
 	
-	public DeviceCommon(String id, String registration_time, String device_type, String manufacturer,String category) {
+	public DeviceCommon(int id, String model_name, String registration_time, String device_type, String manufacturer,String category) {
 		this.id = id;
+		this.model_name = model_name;
 		this.registration_time = registration_time;
 		this.device_type = device_type;
 		this.manufacturer = manufacturer;
 		this.category = category;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
+	}
+	public String getmodel_name() {
+		return model_name;
+	}
+
+	public void setmodel_name(String model_name) {
+		this.model_name = model_name;
 	}
 	public String getregistration_time() {
 		return registration_time;
@@ -59,7 +68,7 @@ public class DeviceCommon {
 	}
 	
 	public String toString() {
-		return this.id + " / " + this.registration_time + " / " + this.device_type + " / " + this.manufacturer + " / " 
+		return   this.id + " / "+this.model_name + " / "+ this.registration_time + " / " + this.device_type + " / " + this.manufacturer + " / " 
 				+ this.category + " / ";
 	}
 	

@@ -73,6 +73,7 @@
 request.setCharacterEncoding("UTF-8");
 	String id = request.getParameter("usrid1");
 	Timestamp now_timestamp = new Timestamp(System.currentTimeMillis());
+	String mn = request.getParameter("model1");
 	String dv = request.getParameter("dv1");
 	String manufacturer = request.getParameter("manufac1");
 	String cate = request.getParameter("cate1");
@@ -89,14 +90,15 @@ request.setCharacterEncoding("UTF-8");
         Class.forName( "com.mysql.jdbc.Driver");
         conn=DriverManager.getConnection(jdbcUrl,dbId ,dbPass );
         
-        String sql = "insert into device_register_table (id, registration_time, device_type,manufacturer,category) values (?,?,?,?,?)";
+        String sql = "insert into device_register_table (id, model_name, registration_time, device_type, manufacturer, category) values (?,?,?,?,?,?)";
         pstmt = conn.prepareStatement(sql);
         
-        pstmt.setString(1, id);
-        pstmt.setTimestamp(2, now_timestamp);
-        pstmt.setString(3, dv);
-        pstmt.setString(4, manufacturer);
-        pstmt.setString(5, cate);
+        pstmt.setString(1, null);
+        pstmt.setString(2, mn);
+        pstmt.setTimestamp(3, now_timestamp);
+        pstmt.setString(4, dv);
+        pstmt.setString(5, manufacturer);
+        pstmt.setString(6, cate);
         
         pstmt.executeUpdate();
         

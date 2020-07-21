@@ -97,7 +97,13 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Devicetype</th>
+					<th>Model name</th>
+					<td><input type="text" class="inputText" id="device_type" name="device_type" 
+							value="<%= dc.getmodel_name() %>">
+					</td>
+				</tr>
+				<tr>
+					<th>Device type</th>
 					<td><input type="text" class="inputText" id="device_type" name="device_type" 
 							value="<%= dc.getDevice_type() %>">
 					</td>
@@ -152,13 +158,7 @@
 			ds_index = dsSize;
 			//yform6.dsSize.value = dsSize; 
 			
-			//dataArr = new Array();
-			// 객체 생성
-			//dataObj = new Object();
-			//dataObj.id = $("#id").val();
 		    $('#append_row').click(function(){ //추가 기능
-		
-		        //alert("aa");
 		
 		        var contents = '<tr>';
 		        contents += '<td><input type = "text" class="inputText" placeholder="metadata_key' + ds_index 

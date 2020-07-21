@@ -43,11 +43,11 @@
 	type="text/javascript"></script>
 <script type="text/javascript">
 	function check(no) {
-		if (myform.usrid1.value == "" || myform.dv1.value == ""
+		if (myform.model1.value == "" || myform.dv1.value == ""
 				|| myform.manufac1.value == "" ) {
 			alert("값을 입력해 주세요");
 
-			myform.usrid1.focus();
+			myform.model1.focus();
 			myform.dv1.focus();
 			myform.manufac1.focus();
 	
@@ -86,8 +86,8 @@
 		<table id="example" border="3px" style="margin-left: auto; margin-right: auto;">
 			
 			<tr>
-				<th>Id</th>
-				<td><input type="text" class="InputText" name="usrid1" placeholder="입력" style="width:300px;height:30px;" /></td>
+				<th>Model name</th>
+				<td><input type="text" class="InputText" name="model1" placeholder="입력" style="width:300px;height:30px;" /></td>
 			</tr>
 			<tr>
 				<th>Device type</th>
