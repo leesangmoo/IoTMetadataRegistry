@@ -98,7 +98,7 @@
 				</tr>
 				<tr>
 					<th>Model name</th>
-					<td><input type="text" class="inputText" id="device_type" name="device_type" 
+					<td><input type="text" class="inputText" id="model_name" name="model_name"
 							value="<%= dc.getmodel_name() %>">
 					</td>
 				</tr>

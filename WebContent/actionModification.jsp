@@ -10,6 +10,7 @@
 	request.setCharacterEncoding("UTF-8");
 	String id = (String)request.getParameter("id");
 	System.out.println(id);
+	String model_name = (String)request.getParameter("model_name");
 	String device_type = (String)request.getParameter("device_type");
 	String manufacturer = (String)request.getParameter("manufacturer");
 	String category = (String)request.getParameter("category");
@@ -26,11 +27,12 @@
 
 	conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
 
-	pstmt = conn.prepareStatement("update device_register_table set device_type=?, manufacturer=?, category=? where id=?");
-	pstmt.setString(1, device_type);
-	pstmt.setString(2, manufacturer);
-	pstmt.setString(3, category);
-	pstmt.setString(4, id);
+	pstmt = conn.prepareStatement("update device_register_table set model_name=?, device_type=?, manufacturer=?, category=? where id=?");
+	pstmt.setString(1, model_name);
+	pstmt.setString(2, device_type);
+	pstmt.setString(3, manufacturer);
+	pstmt.setString(4, category);
+	pstmt.setString(5, id);
 	pstmt.executeUpdate();
 	//pstmt.setString(5, time);
 
