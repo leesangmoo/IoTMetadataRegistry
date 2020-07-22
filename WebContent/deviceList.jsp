@@ -117,7 +117,7 @@
 					--%>
 					<td>
 						<button type="button"
-							onclick="location.href='deviceDetail.jsp?id=<%=dc.getId()%>'">Confirm</button>
+							onclick="location.href='deviceDetail.jsp?id=<%=dc.getId()%>'">detail</button>
 					</td>
 				</tr>
 
