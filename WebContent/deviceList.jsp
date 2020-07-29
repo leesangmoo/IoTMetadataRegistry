@@ -4,8 +4,7 @@
 	pageEncoding="UTF-8"%>
 
 <%
-	
-	mongoDBManager dbm = new mongoDBManager();
+	MongoDBManager dbm = new MongoDBManager();
 
 	ArrayList<DeviceCommon> dcList = dbm.getDeviceList();
 %>

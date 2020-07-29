@@ -72,7 +72,7 @@
 </html>
 
 <%
-    request.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
 	String id = request.getParameter("usrid1");
 	//Timestamp now_timestamp = new Timestamp(System.currentTimeMillis());
 	String mn = request.getParameter("model1");
@@ -80,7 +80,6 @@
 	String manufacturer = request.getParameter("manufac1");
 	String cate = request.getParameter("cate1");
 		
-    mongoDBManager dbm = new mongoDBManager();
+    MongoDBManager dbm = new MongoDBManager();
     dbm.insertDeviceCommon(mn, dv, manufacturer, cate);
-	
- 		 %>
+%>

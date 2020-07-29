@@ -1,0 +1,273 @@
+package webmodules;
+
+import java.net.UnknownHostException;
+import java.security.Timestamp;
+import java.sql.*;
+import java.util.*;
+
+import java.text.SimpleDateFormat;
+
+import com.sun.org.apache.bcel.internal.generic.DMUL;
+
+import structures.*;
+import sun.awt.SunHints.Value;
+
+import org.apache.jasper.tagplugins.jstl.core.Catch;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
+import com.mongodb.*;
+import com.mongodb.client.*;
+import static com.mongodb.client.model.Filters.*;
+
+public class MongoDBManager {
+	private static String MongoDB_IP = "localhost";
+	private static int MongoDB_PORT = 27017;
+	private static String DB_NAME = "dbtest";
+
+	private MongoClient mongoClient;
+	private MongoDatabase db;
+	private MongoCollection<Document> collection;
+
+//	private String model_name;
+//	private String registration_time;
+//	private String device_type;
+//	private String manufacturer;
+//	private String category;
+
+	public MongoDBManager() {
+
+	}
+
+	public void connectDB(String collectionName) {
+		// Connect to MongoDB
+		mongoClient = new MongoClient(new ServerAddress(MongoDB_IP, MongoDB_PORT));
+
+		// Mongo mongo = new Mongo("localhost", 27017);
+		db = mongoClient.getDatabase(DB_NAME);
+		collection = db.getCollection(collectionName);
+	}
+	
+	public void disconnectDB() {
+		if (mongoClient!=null)
+			mongoClient.close();
+	}
+	
+	public void insertDeviceCommon(String modelName, String deviceType, 
+			String manufacturer, String catergory) {
+		
+		connectDB("device_regi3");
+		
+		try {
+			// DBCollection collection = db.getCollection("device_regi3");
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy / MM / dd / HH:mm:ss");
+			String now_time = sdf.format(cal.getTime());
+
+//			BasicDBObject document = new BasicDBObject();
+//			document.put("registrationTime", now_time);
+//			document.put("modelName", modelName);
+//			document.put("deviceType", deviceType);
+//			document.put("manufacturer", manufacturer);
+//			document.put("category", catergory);
+//
+//			collection.insert(document);
+
+			Document document = new Document("registrationTime", now_time);
+			document.append("modelName", modelName);
+			document.append("deviceType", deviceType);
+			document.append("manufacturer", manufacturer);
+			document.append("category", catergory);
+			collection.insertOne(document);
+
+			System.out.println("collection-----test----->>>>>" + document.size());
+			//BasicDBObject searchQuery = new BasicDBObject();
+			// searchQuery.put("modelName", modelName);
+			// DBCursor cursor = collection.find(searchQuery);
+			// DBCursor cursor = collection.find();
+
+			MongoCursor<Document> cursor = collection.find().iterator();
+			while (cursor.hasNext()) {
+				System.out.println(cursor.next().toJson());
+			}
+			cursor.close();
+
+			System.out.println("몽고 디비 연결 성공");
+		} catch (MongoException e) {
+			e.printStackTrace();
+		}
+		
+		disconnectDB();
+	}
+
+	public ArrayList<DeviceCommon> getDeviceList() {
+		ArrayList<DeviceCommon> devList = new ArrayList<DeviceCommon>();
+		
+		connectDB("device_regi3");
+
+		// Iterator<DBObject> cursor = collection.find().iterator();
+		// DBCursor cursor2 = (DBCursor) collection.find().iterator();
+		try {
+			
+			MongoCursor<Document> cursor = collection.find().iterator();
+
+//			ArrayList<DBObject> doc2 = new ArrayList<DBObject>();
+//			DBCursor cursor2 = collection.find();
+			int i=1;
+			while (cursor.hasNext()) {
+				Document document = cursor.next();
+				//doc2.add(doc);
+				System.out.println("doctest-->>>>>>__>>>" + i++); // collection 에 있는 모든 데이터 수
+				System.out.println("cursortest->>>>>>>>>>>>>>" + document.toJson().toString());
+
+//				ArrayList<Object> key = new ArrayList<Object>(doc.keySet()); // key 추출
+//				DBObject value = collection.findOne(); // value 추출
+
+				DeviceCommon dc = new DeviceCommon();
+				String id = (String) document.get("_id").toString();
+				dc.setId(id);
+				// for (int i = 0; i < key.size(); i++) {
+				// System.out.printf("%s : %s%n", key.get(i), value.get((String) key.get(i)));
+				// System.out.printf("%s : %s%n", key.get(i), doc.get((String) key.get(i)));
+				// System.out.println("<>" + key.get(i) + " : " + doc.get((String) key.get(i)));
+
+				dc.setregistration_time(document.get("registrationTime"));
+				dc.setmodel_name(document.get("modelName"));
+				dc.setDevice_type(document.get("deviceType"));
+				dc.setManufacturer(document.get("manufacturer"));
+				dc.setCategory(document.get("category"));
+				devList.add(dc);
+
+				// }
+				System.out.println(dc.toString());
+				System.out.println(dc.getId().toString());
+			}
+
+			cursor.close();
+
+		} catch (MongoException e) {
+			System.out.println(e.getMessage());
+		}
+
+		disconnectDB();
+		
+		return devList;
+	}
+
+	public DeviceCommon getDeviceCommon(String device_id) {
+		
+		connectDB("device_regi3");
+
+		DeviceCommon dc = new DeviceCommon();
+		
+		try {
+//			MongoCursor<Document> cursor = collection.find(eq("_id",device_id)).iterator();
+			Document document = collection.find(eq("_id",new ObjectId(device_id))).first();
+
+			if (document!=null) {
+				dc.setId(document.get("_id").toString());
+				dc.setregistration_time(document.get("registrationTime"));
+				dc.setmodel_name(document.get("modelName"));
+				dc.setDevice_type(document.get("deviceType"));
+				dc.setManufacturer(document.get("manufacturer"));
+				dc.setCategory(document.get("category"));
+			}
+			
+//			while (cursor.hasNext()) {
+//				Document doc = cursor.next();
+//				System.out.println("cursortest->>>>>>>>>>>>>>" + doc);
+//
+//				String id = (String) doc.get("_id").toString();
+//				if (id.equals(device_id)) {
+//					dc.setId(id);
+//					dc.setregistration_time(doc.get("registrationTime"));
+//					dc.setmodel_name(doc.get("modelName"));
+//					dc.setDevice_type(doc.get("deviceType"));
+//					dc.setManufacturer(doc.get("manufacturer"));
+//					dc.setCategory(doc.get("category"));
+//				}
+//			}
+		} catch (MongoException e) {
+			System.out.println(e.getMessage());
+		}
+
+		disconnectDB();
+		
+		return dc;
+	}
+
+	public void deleteDeviceCommon(String device_id) {
+		deleteDeviceSpecific(device_id);
+		
+		//device common 삭제
+	}
+	
+	public void insertDeviceSpecific(String device_id, ArrayList<String> keyList, ArrayList<String> valueList) {
+		connectDB("device_regi6"); 
+		
+		deleteDeviceSpecific(device_id);
+		
+		try {
+//			BasicDBObject document = new BasicDBObject();
+			Document document = new Document("cd_oid", new ObjectId(device_id));
+
+			for (int i = 0; i < keyList.size(); i++) {
+				document.append(keyList.get(i), valueList.get(i));
+			}
+//			collection.insert(document);
+			collection.insertOne(document);
+			
+			System.out.println("collection-----test----->>>>>" + document.size());
+
+			MongoCursor<Document> cursor = collection.find().iterator();
+
+			while (cursor.hasNext()) {
+				System.out.println(cursor.next());
+			}
+		} catch (MongoException e) {
+			e.printStackTrace();
+		}
+		
+		disconnectDB();
+	}
+
+	public DeviceSpecific getDeviceSpecific(String device_id) {
+		DeviceSpecific ds = new DeviceSpecific();
+
+		connectDB("device_regi6");
+		try {
+			Document document = collection.find(eq("cd_oid", new ObjectId(device_id))).first();
+
+			if (document!=null) {
+				ArrayList<Object> keyList = new ArrayList<Object>(document.keySet()); // key 추출
+
+				ds.setId(device_id);
+				
+				for (int i=0; i<keyList.size(); i++) {
+//					System.out.println(key.get(i).toString());
+					String key = keyList.get(i).toString();
+					
+					if (!key.equals("_id") && !key.equals("cd_oid")) {
+						ds.add(key, document.get(key));
+					}
+				}
+			}
+
+		} catch (MongoException e) {
+			System.out.println(e.getMessage());
+		}
+
+		disconnectDB();
+		
+		return ds;
+	}
+
+	public void deleteDeviceSpecific(String device_id) {
+		// device specific 삭제  cd_oid == device_id랑 같은걸로 ObjectId 객체 이용
+	}
+	
+	public static void main(String[] args) {
+		// MongoDBManager mgb = new MongoDBManager();
+		// mgb.getDeviceList();
+	}
+}

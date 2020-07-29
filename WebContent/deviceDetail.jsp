@@ -10,19 +10,19 @@
 	type="text/javascript"></script>
     
 <%
-	String device_id = (String)request.getParameter("id");
+    	String device_id = (String)request.getParameter("id");
+		
+    	MongoDBManager dbm = new MongoDBManager(); 
 
-	mongoDBManager dbm = new mongoDBManager(); 
-	
-	DeviceCommon dc = dbm.getDeviceCommon(device_id);
-	DeviceSpecific ds = dbm.getDeviceSpecific(device_id); 
+    	DeviceCommon dc = dbm.getDeviceCommon(device_id);
 
-	for(int i=0; i<ds.size(); i++) {
-		System.out.println("key " + ds.getKey(i));
-		System.out.println("value " + ds.getValue(i));
-	}
+		DeviceSpecific ds = dbm.getDeviceSpecific(device_id); 
 
-%>
+    	for(int i=0; i<ds.size(); i++) {
+    		System.out.println("key " + ds.getKey(i));
+    		System.out.println("value " + ds.getValue(i));
+    	}
+    %>
     
 <html>
 <head>

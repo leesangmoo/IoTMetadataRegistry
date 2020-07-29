@@ -19,27 +19,27 @@
 	%>
 <!-- specific metadata 입력 -->	
 	<%
-	Connection conn2 = null;
-	PreparedStatement pstmt2 = null;
-	request.setCharacterEncoding("UTF-8");
+			Connection conn2 = null;
+			PreparedStatement pstmt2 = null;
+			request.setCharacterEncoding("UTF-8");
 
-	ArrayList<String> new_keylist = new ArrayList<String>();
-	ArrayList<String> new_valuelist = new ArrayList<String>();
-	
-	String DSize = request.getParameter("Dsize"); //ID 값을 제외한 JSON 객체 수 
-	String key [] = new String [Integer.valueOf(DSize)];
-	String value [] = new String [Integer.valueOf(DSize)];
+			ArrayList<String> new_keylist = new ArrayList<String>();
+			ArrayList<String> new_valuelist = new ArrayList<String>();
+			
+			String DSize = request.getParameter("Dsize"); //ID 값을 제외한 JSON 객체 수 
+			String key [] = new String [Integer.valueOf(DSize)];
+			String value [] = new String [Integer.valueOf(DSize)];
 
-	System.out.println("size test = " + DSize);
-	String mdkey= null;
-	String mdvalue = null;
-	for(int i = 0; i < Integer.valueOf(DSize); i++){
-		mdkey = request.getParameter("Dkey" + i);
-		mdvalue =  request.getParameter("Dvalue" + i);
-		
-		System.out.print(i + " - key : " + mdkey + " |  value : " + mdvalue);
-		
-		if ( !(mdkey=="" || mdkey==null 
+			System.out.println("size test = " + DSize);
+			String mdkey= null;
+			String mdvalue = null;
+			for(int i = 0; i < Integer.valueOf(DSize); i++){
+				mdkey = request.getParameter("Dkey" + i);
+				mdvalue =  request.getParameter("Dvalue" + i);
+				
+				System.out.print(i + " - key : " + mdkey + " |  value : " + mdvalue);
+				
+				if ( !(mdkey=="" || mdkey==null 
 			|| mdvalue == "" || mdvalue==null)) {
 			if (!(mdkey.equals("null") && mdvalue.equals("null"))) {
 				new_keylist.add(mdkey);
@@ -47,13 +47,12 @@
 				
 				System.out.print("  added");	
 			}
-		}
-		System.out.println();
-	}
-	mongoDBManager mdb = new mongoDBManager();
-	mdb.InsertDeviceSpecific(id, new_keylist, new_valuelist);
-	
-%>
+				}
+				System.out.println();
+			}
+			MongoDBManager mdb = new MongoDBManager();
+			mdb.insertDeviceSpecific(id, new_keylist, new_valuelist);
+		%>
 
 <html>
 <head>

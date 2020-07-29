@@ -7,7 +7,7 @@
 <%
 	String device_id = (String)request.getParameter("id");
 
-	mongoDBManager dbm = new mongoDBManager();
+	MongoDBManager dbm = new MongoDBManager();
 	DeviceCommon dc = dbm.getDeviceCommon(device_id);
 	DeviceSpecific ds = dbm.getDeviceSpecific(device_id);
 	for(int i=0; i<ds.size(); i++) {
@@ -15,7 +15,6 @@
 		System.out.println("key #" + (i+1) + " : " + ds.getKey(i));
 		System.out.println("value #" + (i+1) + " : " + ds.getValue(i));
 	}
-	
 %>
     
 <html>
