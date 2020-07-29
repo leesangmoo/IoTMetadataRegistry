@@ -35,7 +35,7 @@ public class mongoDBManager {
 
 	}
 
-	public static void insert(String modelName, String deviceType, String manufacturer, String catergory)
+	public static void insertDeviceCommon(String modelName, String deviceType, String manufacturer, String catergory)
 			throws UnknownHostException {
 		try {
 			Mongo mongo = new Mongo("localhost", 27017);

@@ -81,6 +81,6 @@
 	String cate = request.getParameter("cate1");
 		
     mongoDBManager dbm = new mongoDBManager();
-    dbm.insert(mn, dv, manufacturer, cate);
+    dbm.insertDeviceCommon(mn, dv, manufacturer, cate);
 	
  		 %>
