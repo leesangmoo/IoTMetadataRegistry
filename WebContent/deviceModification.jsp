@@ -7,21 +7,15 @@
 <%
 	String device_id = (String)request.getParameter("id");
 
-	DBManager dbm = new DBManager();
-	dbm.connect();
+	mongoDBManager dbm = new mongoDBManager();
 	DeviceCommon dc = dbm.getDeviceCommon(device_id);
 	DeviceSpecific ds = dbm.getDeviceSpecific(device_id);
-	dbm.disconnect();
 	for(int i=0; i<ds.size(); i++) {
 		
 		System.out.println("key #" + (i+1) + " : " + ds.getKey(i));
 		System.out.println("value #" + (i+1) + " : " + ds.getValue(i));
 	}
 	
-	
-	//String id_json = (String)request.getParameter("ID");
-	//String key0 = (String)request.getParameter("key0");
-	//String value0 = (String)request.getParameter("value0");
 %>
     
 <html>

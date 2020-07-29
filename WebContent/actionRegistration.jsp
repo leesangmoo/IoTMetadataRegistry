@@ -1,7 +1,9 @@
+<%@page import="com.sun.org.apache.bcel.internal.generic.DMUL"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.Catch"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.sql.* , java.util.*"%>
+<%@ page import="java.sql.* , java.util.*, webmodules.*"%>
+
 <%//actionRegistration.jsp %>
 <!DOCTYPE html>
 <html>
@@ -70,53 +72,15 @@
 </html>
 
 <%
-request.setCharacterEncoding("UTF-8");
+    request.setCharacterEncoding("UTF-8");
 	String id = request.getParameter("usrid1");
-	Timestamp now_timestamp = new Timestamp(System.currentTimeMillis());
+	//Timestamp now_timestamp = new Timestamp(System.currentTimeMillis());
 	String mn = request.getParameter("model1");
 	String dv = request.getParameter("dv1");
 	String manufacturer = request.getParameter("manufac1");
 	String cate = request.getParameter("cate1");
-  	Connection conn=null;
- 	PreparedStatement pstmt = null;
- 	String str="";
-
-  try{
-     
-        String jdbcUrl= "jdbc:mysql://localhost:3306/jsptest" ;
-        String dbId="jspid";
-        String dbPass= "jsppass";
- 
-        Class.forName( "com.mysql.jdbc.Driver");
-        conn=DriverManager.getConnection(jdbcUrl,dbId ,dbPass );
-        
-        String sql = "insert into device_register_table (id, model_name, registration_time, device_type, manufacturer, category) values (?,?,?,?,?,?)";
-        pstmt = conn.prepareStatement(sql);
-        
-        pstmt.setString(1, null);
-        pstmt.setString(2, mn);
-        pstmt.setTimestamp(3, now_timestamp);
-        pstmt.setString(4, dv);
-        pstmt.setString(5, manufacturer);
-        pstmt.setString(6, cate);
-        
-        pstmt.executeUpdate();
-        
-           out.println("----------------------------------->>> 디바이스 등록 완료");
-        
-  }catch(Exception e){
-           e.printStackTrace();
-           out.println("----------------------------------->>> 디바이스 등록 실패");
-  }finally{ //리소스 해제
-	  if(pstmt != null)
-		  try{
-			  pstmt.close();
-		  }catch(SQLException sqle){}
-  	if(conn != null){
-  		try{
-  			conn.close();
-  		}catch(SQLException sqle){}
-  	}
-  }
-
-%>
+		
+    mongoDBManager dbm = new mongoDBManager();
+    dbm.insert(mn, dv, manufacturer, cate);
+	
+ 		 %>

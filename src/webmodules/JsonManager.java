@@ -71,10 +71,10 @@ public class JsonManager {
 		}
 		System.out.println(dev.toJSONString());
 		
-		int obj_index = findObjectFromArray(ds.getId());
-		if (obj_index > -1) {
-			this.devarr.remove(obj_index);
-		}
+	//	int obj_index = findObjectFromArray(ds.getId());
+	//	if (obj_index > -1) {
+		//	this.devarr.remove(obj_index);
+	//	}
 		this.devarr.add(dev);
 		System.out.println(this.devarr.toJSONString());
 	}

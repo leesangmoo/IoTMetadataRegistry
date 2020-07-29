@@ -2,25 +2,25 @@ package structures;
 
 import java.util.*;
 
-public class DeviceSpecific {
+public class DeviceCommon2 {
 	public Object id;
 	public ArrayList<Object> keyList;
 	public ArrayList<Object> valueList;
 
 	
-	public DeviceSpecific() {
+	public DeviceCommon2() {
 		this.id = "";
 		this.keyList = new ArrayList<Object>();
 		this.valueList = new ArrayList<Object>();
 	}
 
-	public DeviceSpecific(Object device_id) {
+	public DeviceCommon2(Object device_id) {
 		this.id = device_id;
 		this.keyList = new ArrayList<Object>();
 		this.valueList = new ArrayList<Object>();
 	}
 
-	public DeviceSpecific(Object device_id, ArrayList<Object> key, ArrayList<Object> value) {
+	public DeviceCommon2(Object device_id, ArrayList<Object> key, ArrayList<Object> value) {
 		this.id = device_id;
 		this.keyList = key;
 		this.valueList = value;

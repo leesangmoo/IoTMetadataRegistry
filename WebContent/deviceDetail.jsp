@@ -12,21 +12,16 @@
 <%
 	String device_id = (String)request.getParameter("id");
 
-	DBManager dbm = new DBManager();
-	dbm.connect();
+	mongoDBManager dbm = new mongoDBManager(); 
+	
 	DeviceCommon dc = dbm.getDeviceCommon(device_id);
-	DeviceSpecific ds = dbm.getDeviceSpecific(device_id);
-	dbm.disconnect();	
+	DeviceSpecific ds = dbm.getDeviceSpecific(device_id); 
 
 	for(int i=0; i<ds.size(); i++) {
 		System.out.println("key " + ds.getKey(i));
 		System.out.println("value " + ds.getValue(i));
 	}
 
-	
-	//String id_json = (String)request.getParameter("ID");
-	//String key0 = (String)request.getParameter("key0");
-	//String value0 = (String)request.getParameter("value0");
 %>
     
 <html>
@@ -127,13 +122,10 @@
 				<td><input type="text" class="no-border" id="category" name="category" value="<%= dc.getCategory() %>" style = "text-align : center;"></td>
 			</tr>
 		</table><br><br><br><br>	
-			<!--  <tr>
-					<th>Id</th>
-					<td><input type="text" id="id" name="id" value="<%= ds.getId() %>"></td>
-				</tr>-->
+			
 				<h2 style = "text-align: left;">Specific Metadata</h2>
 				<table name="tb2" id="tb2" width="100%" border="1" >
-				<%
+			<%
 				for(int i = 0; i < ds.size(); i++){
 				%>
 				<tr>

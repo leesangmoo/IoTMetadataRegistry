@@ -1,18 +1,18 @@
 package structures;
 
 public class DeviceCommon {
-	private int id;
-	private String model_name;
-	private String registration_time;
-	private String device_type;
-	private String manufacturer;
-	private String category;
+	private Object id;
+	private Object model_name;
+	private Object registration_time;
+	private Object device_type;
+	private Object manufacturer;
+	private Object category;
 
 	public DeviceCommon() {
-		this(0,"","","","","");
+		this("","","","","","");
 	}
 	
-	public DeviceCommon(int id, String model_name, String registration_time, String device_type, String manufacturer,String category) {
+	public DeviceCommon(Object id, Object model_name, Object registration_time, Object device_type, Object manufacturer,Object category) {
 		this.id = id;
 		this.model_name = model_name;
 		this.registration_time = registration_time;
@@ -21,49 +21,49 @@ public class DeviceCommon {
 		this.category = category;
 	}
 
-	public int getId() {
+	public Object getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Object id) {
 		this.id = id;
 	}
-	public String getmodel_name() {
+	public Object getmodel_name() {
 		return model_name;
 	}
 
-	public void setmodel_name(String model_name) {
+	public void setmodel_name(Object model_name) {
 		this.model_name = model_name;
 	}
-	public String getregistration_time() {
+	public Object getregistration_time() {
 		return registration_time;
 	}
 
-	public void setregistration_time(String registration_time) {
+	public void setregistration_time(Object registration_time) {
 		this.registration_time = registration_time;
 	}
 
-	public String getDevice_type() {
+	public Object getDevice_type() {
 		return device_type;
 	}
 
-	public void setDevice_type(String device_type) {
+	public void setDevice_type(Object device_type) {
 		this.device_type = device_type;
 	}
 
-	public String getManufacturer() {
+	public Object getManufacturer() {
 		return manufacturer;
 	}
 
-	public void setManufacturer(String manufacturer) {
+	public void setManufacturer(Object manufacturer) {
 		this.manufacturer = manufacturer;
 	}
 
-	public String getCategory() {
+	public Object getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(Object category) {
 		this.category = category;
 	}
 	

@@ -15,31 +15,6 @@
 	String manufacturer = (String)request.getParameter("manufacturer");
 	String category = (String)request.getParameter("category");
 
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-
-	Class.forName("com.mysql.jdbc.Driver");
-
-	try{
-	String jdbcDriver = "jdbc:mysql://localhost:3306/jsptest?"+"useUnicode=true&characterEncoding=euckr";
-	String dbUser = "jspid";
-	String dbPass = "jsppass";
-
-	conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
-
-	pstmt = conn.prepareStatement("update device_register_table set model_name=?, device_type=?, manufacturer=?, category=? where id=?");
-	pstmt.setString(1, model_name);
-	pstmt.setString(2, device_type);
-	pstmt.setString(3, manufacturer);
-	pstmt.setString(4, category);
-	pstmt.setString(5, id);
-	pstmt.executeUpdate();
-	//pstmt.setString(5, time);
-
-	}finally{
-		if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-		if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-	 	}
 
 	%>
 <!-- specific metadata 입력 -->	
@@ -56,10 +31,11 @@
 	String value [] = new String [Integer.valueOf(DSize)];
 
 	System.out.println("size test = " + DSize);
-	
+	String mdkey= null;
+	String mdvalue = null;
 	for(int i = 0; i < Integer.valueOf(DSize); i++){
-		String mdkey = request.getParameter("Dkey" + i);
-		String mdvalue =  request.getParameter("Dvalue" + i);
+		mdkey = request.getParameter("Dkey" + i);
+		mdvalue =  request.getParameter("Dvalue" + i);
 		
 		System.out.print(i + " - key : " + mdkey + " |  value : " + mdvalue);
 		
@@ -74,51 +50,8 @@
 		}
 		System.out.println();
 	}
-	DeviceSpecific new_ds = new DeviceSpecific();
-	
-	try{
-	 DBManager dbm = new DBManager();
-	 String jdbcUrl= "jdbc:mysql://localhost:3306/jsptest" ;
-     String dbId="jspid";
-     String dbPass= "jsppass";
-
-     Class.forName("com.mysql.jdbc.Driver");
-     conn2=DriverManager.getConnection(jdbcUrl,dbId ,dbPass );
- 	
-     pstmt2 = conn2.prepareStatement("DELETE FROM specific_metadata WHERE id=?");
-	 pstmt2.setString(1, id);
-	 pstmt2.executeUpdate();
-     
-     String sql = "insert into specific_metadata (id, metadata_key, metadata_value) values (?,?,?) ON DUPLICATE KEY UPDATE id=?, metadata_key=?, metadata_value=?";
-
-     pstmt2 = conn2.prepareStatement(sql);
-    
-     for(int i = 0; i < new_keylist.size();i++){
-    		 pstmt2.setString(1, id);
-             pstmt2.setString(2, new_keylist.get(i));
-             pstmt2.setString(3, new_valuelist.get(i));
-             pstmt2.setString(4, id);
-             pstmt2.setString(5, new_keylist.get(i));
-             pstmt2.setString(6, new_valuelist.get(i));
-             pstmt2.executeUpdate();    		 
-     }
-        System.out.println("----------------------------------->>> 디바이스 등록 완료");
-     
-}catch(Exception e){
-        e.printStackTrace();
-        System.out.println("----------------------------------->>> 디바이스 등록 실패");
-}finally{ //리소스 해제
-	  if(pstmt2 != null)
-		  try{
-			  pstmt2.close();
-		  }catch(SQLException sqle){}
-	if(conn2 != null){
-		try{
-			conn2.close();
-		}catch(SQLException sqle){}
-	}
-}
-
+	mongoDBManager mdb = new mongoDBManager();
+	mdb.InsertDeviceSpecific(id, new_keylist, new_valuelist);
 	
 %>
 

@@ -4,13 +4,10 @@
 	pageEncoding="UTF-8"%>
 
 <%
-	DBManager dbm = new DBManager();
-
-	dbm.connect();
+	
+	mongoDBManager dbm = new mongoDBManager();
 
 	ArrayList<DeviceCommon> dcList = dbm.getDeviceList();
-	
-	dbm.disconnect();
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -21,7 +18,7 @@
   	  	border-collapse: collapse; 
     }
 	table {
-		width: 85%;
+		width: 87%;
 		margin-left: auto;
 		margin-right: auto;
 		border: 1px solid #444444;

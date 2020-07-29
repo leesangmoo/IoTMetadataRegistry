@@ -18,14 +18,13 @@ public class DBManager {
 	
 	public DBManager() {
 		this.conn = null;
-		
 		this.dbUser = DBManager.DEFAULT_ID;
 		this.dbPwd = DBManager.DEFAULT_PW;
 		this.jdbcDriver = "jdbc:mysql://" + DBManager.DEFAULT_IP + ":3306/" 
 				+ DBManager.DEFAULT_DATABASE + "?useUnicode=true&characterEncoding=utf8";
 
 	}
-
+	
 	public boolean connect() {
 		try {
 			Class.forName(DBManager.DB_DRIVERCLASS);
