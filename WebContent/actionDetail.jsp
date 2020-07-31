@@ -4,57 +4,10 @@ import="java.util.*, webmodules.*, structures.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 		<%
 			String send_id = request.getParameter("id");
-			System.out.println(send_id + " <-- 해당 id 삭제 ");
-			request.setCharacterEncoding("utf-8");
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			Class.forName("com.mysql.jdbc.Driver");
-			try {
-				String jdbcDriver = "jdbc:mysql://localhost:3306/jsptest?useUnicode=true&characterEncoding=utf8";
-				String dbUser = "jspid";
-				String dbPass = "jsppass";
-				conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
-				pstmt = conn.prepareStatement("DELETE FROM device_register_table WHERE id=?");
-				pstmt.setString(1, send_id);
-				pstmt.executeUpdate();
-			} finally {
-				if (pstmt != null)
-					try {
-						pstmt.close();
-					} catch (SQLException ex) {
-					}
-				if (conn != null)
-					try {
-						conn.close();
-					} catch (SQLException ex) {
-					}
-			}
-		%>
-		<%
-			Connection conn2 = null;
-			PreparedStatement pstmt2 = null;
-			Class.forName("com.mysql.jdbc.Driver");
-			try {
-				String jdbcDriver = "jdbc:mysql://localhost:3306/jsptest?useUnicode=true&characterEncoding=utf8";
-				String dbUser = "jspid";
-				String dbPass = "jsppass";
-				conn2 = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
-				pstmt2 = conn2.prepareStatement("DELETE FROM specific_metadata WHERE id=?");
-				pstmt2.setString(1, send_id);
-				pstmt2.executeUpdate();
-			} finally {
-				if (pstmt2 != null)
-					try {
-						pstmt2.close();
-					} catch (SQLException ex) {
-					}
-				if (conn2 != null)
-					try {
-						conn2.close();
-					} catch (SQLException ex) {
-					}
-			}
-		%>
+			MongoDBManager mdb = new MongoDBManager();
+			mdb.deleteDeviceCommon(send_id);
+			
+			%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <style>

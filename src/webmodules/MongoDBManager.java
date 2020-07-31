@@ -220,9 +220,12 @@ public class MongoDBManager {
 	}
 
 	public void deleteDeviceCommon(String device_id) {
+		connectDB("device_regi9"); 
+		collection.deleteOne(new Document("_id", new ObjectId(device_id)));
+		disconnectDB();
 		deleteDeviceSpecific(device_id);
-		
 		//device common 삭제
+		disconnectDB();
 	}
 	
 	public void insertDeviceSpecific(String device_id, ArrayList<String> keyList, ArrayList<String> valueList) {
@@ -286,6 +289,7 @@ public class MongoDBManager {
 	}
 
 	public void deleteDeviceSpecific(String device_id) {
+		connectDB("device_regi6");
 		collection.deleteOne(new Document("cd_oid", new ObjectId(device_id)));
 		// device specific 삭제  cd_oid == device_id랑 같은걸로 ObjectId 객체 이용
 	}
