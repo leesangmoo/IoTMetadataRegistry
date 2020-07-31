@@ -14,10 +14,15 @@ import sun.awt.SunHints.Value;
 
 import org.apache.jasper.tagplugins.jstl.core.Catch;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 import com.mongodb.*;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.result.UpdateResult;
+
 import static com.mongodb.client.model.Filters.*;
 
 public class MongoDBManager {
@@ -54,9 +59,9 @@ public class MongoDBManager {
 	}
 	
 	public void insertDeviceCommon(String modelName, String deviceType, 
-			String manufacturer, String catergory) {
-		
-		connectDB("device_regi3");
+			String manufacturer, String category) {
+
+		connectDB("device_regi9");
 		
 		try {
 			// DBCollection collection = db.getCollection("device_regi3");
@@ -77,9 +82,9 @@ public class MongoDBManager {
 			document.append("modelName", modelName);
 			document.append("deviceType", deviceType);
 			document.append("manufacturer", manufacturer);
-			document.append("category", catergory);
+			document.append("category", category);
 			collection.insertOne(document);
-
+			
 			System.out.println("collection-----test----->>>>>" + document.size());
 			//BasicDBObject searchQuery = new BasicDBObject();
 			// searchQuery.put("modelName", modelName);
@@ -99,11 +104,43 @@ public class MongoDBManager {
 		
 		disconnectDB();
 	}
+	public void updateDeviceCommon(String id ,String time, String modelName, String deviceType, 
+			String manufacturer, String category) {
 
+		connectDB("device_regi9");
+		
+		try {
+			//collection.deleteOne(new Document("_id", new ObjectId(id)));
+			collection.deleteOne(new Document("_id", new ObjectId(id)));
+			Document document = new Document();
+			document.append("_id",  new ObjectId(id));
+			document.append("registrationTime", time);
+			document.append("modelName", modelName);
+			document.append("deviceType", deviceType);
+			document.append("manufacturer", manufacturer);
+			document.append("category", category);
+			
+			collection.insertOne(document);
+			
+			System.out.println("collection-----test----->>>>>" + document.size());
+
+			MongoCursor<Document> cursor = collection.find().iterator();
+			while (cursor.hasNext()) {
+				System.out.println(cursor.next().toJson());
+			}
+			cursor.close();
+
+			System.out.println("몽고 디비 연결 성공");
+		} catch (MongoException e) {
+			e.printStackTrace();
+		}
+		
+		disconnectDB();
+	}
 	public ArrayList<DeviceCommon> getDeviceList() {
 		ArrayList<DeviceCommon> devList = new ArrayList<DeviceCommon>();
 		
-		connectDB("device_regi3");
+		connectDB("device_regi9");
 
 		// Iterator<DBObject> cursor = collection.find().iterator();
 		// DBCursor cursor2 = (DBCursor) collection.find().iterator();
@@ -156,7 +193,7 @@ public class MongoDBManager {
 
 	public DeviceCommon getDeviceCommon(String device_id) {
 		
-		connectDB("device_regi3");
+		connectDB("device_regi9");
 
 		DeviceCommon dc = new DeviceCommon();
 		
@@ -172,21 +209,7 @@ public class MongoDBManager {
 				dc.setManufacturer(document.get("manufacturer"));
 				dc.setCategory(document.get("category"));
 			}
-			
-//			while (cursor.hasNext()) {
-//				Document doc = cursor.next();
-//				System.out.println("cursortest->>>>>>>>>>>>>>" + doc);
-//
-//				String id = (String) doc.get("_id").toString();
-//				if (id.equals(device_id)) {
-//					dc.setId(id);
-//					dc.setregistration_time(doc.get("registrationTime"));
-//					dc.setmodel_name(doc.get("modelName"));
-//					dc.setDevice_type(doc.get("deviceType"));
-//					dc.setManufacturer(doc.get("manufacturer"));
-//					dc.setCategory(doc.get("category"));
-//				}
-//			}
+
 		} catch (MongoException e) {
 			System.out.println(e.getMessage());
 		}
@@ -204,7 +227,7 @@ public class MongoDBManager {
 	
 	public void insertDeviceSpecific(String device_id, ArrayList<String> keyList, ArrayList<String> valueList) {
 		connectDB("device_regi6"); 
-		
+		System.out.println("스페시픽 컨넷");
 		deleteDeviceSpecific(device_id);
 		
 		try {
@@ -240,8 +263,8 @@ public class MongoDBManager {
 
 			if (document!=null) {
 				ArrayList<Object> keyList = new ArrayList<Object>(document.keySet()); // key 추출
-
-				ds.setId(device_id);
+				String key2 = keyList.get(1).toString();
+				ds.setId(document.get(key2));
 				
 				for (int i=0; i<keyList.size(); i++) {
 //					System.out.println(key.get(i).toString());
@@ -263,6 +286,7 @@ public class MongoDBManager {
 	}
 
 	public void deleteDeviceSpecific(String device_id) {
+		collection.deleteOne(new Document("cd_oid", new ObjectId(device_id)));
 		// device specific 삭제  cd_oid == device_id랑 같은걸로 ObjectId 객체 이용
 	}
 	

@@ -7,20 +7,22 @@
 
 <!-- Global metadata 수정 -->
 <%
+    MongoDBManager mdb = new MongoDBManager();
+
 	request.setCharacterEncoding("UTF-8");
 	String id = (String)request.getParameter("id");
+	DeviceCommon dc = mdb.getDeviceCommon(id);
 	System.out.println(id);
+	String time = (String)request.getParameter("time");
 	String model_name = (String)request.getParameter("model_name");
 	String device_type = (String)request.getParameter("device_type");
 	String manufacturer = (String)request.getParameter("manufacturer");
 	String category = (String)request.getParameter("category");
-
+	mdb.updateDeviceCommon(id, time, model_name, device_type, manufacturer, category);
 
 	%>
 <!-- specific metadata 입력 -->	
 	<%
-			Connection conn2 = null;
-			PreparedStatement pstmt2 = null;
 			request.setCharacterEncoding("UTF-8");
 
 			ArrayList<String> new_keylist = new ArrayList<String>();
@@ -50,7 +52,6 @@
 				}
 				System.out.println();
 			}
-			MongoDBManager mdb = new MongoDBManager();
 			mdb.insertDeviceSpecific(id, new_keylist, new_valuelist);
 		%>
 

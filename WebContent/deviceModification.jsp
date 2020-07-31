@@ -95,6 +95,11 @@
 					</td>
 				</tr>
 				<tr>
+					<th>Registration time</th>
+					<td><input type="text" class="inputText" id="time" name="time" value="<%= dc.getregistration_time()%>">
+					</td>
+				</tr>
+				<tr>
 					<th>Model name</th>
 					<td><input type="text" class="inputText" id="model_name" name="model_name"
 							value="<%= dc.getmodel_name() %>">
