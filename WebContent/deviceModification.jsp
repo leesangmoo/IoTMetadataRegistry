@@ -89,7 +89,7 @@
 		<div class="MenuBar">
 			<h1> Modifying Device Metadata </h1>
 			<button type="button" onclick="location.href='deviceList.jsp'">디바이스 목록 보기</button>
-			<button type="submit" id="changeBtn">수정완료</button>
+			<button type="submit" id="changeBtn">수정 완료</button>
 			<button type="button" onclick="goBack();">뒤로 가기</button>
 		</div>
 		<div class = "DeviceInfo">
