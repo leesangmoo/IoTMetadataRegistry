@@ -3,24 +3,24 @@ package structures;
 import java.util.*;
 
 public class DeviceSpecific {
-	public String id;
+	public int id;
 	public ArrayList<String> keyList;
 	public ArrayList<String> valueList;
 
 	
 	public DeviceSpecific() {
-		this.id = "";
+		this.id = 0;
 		this.keyList = new ArrayList<String>();
 		this.valueList = new ArrayList<String>();
 	}
 
-	public DeviceSpecific(String device_id) {
+	public DeviceSpecific(int device_id) {
 		this.id = device_id;
 		this.keyList = new ArrayList<String>();
 		this.valueList = new ArrayList<String>();
 	}
 
-	public DeviceSpecific(String device_id, ArrayList<String> key, ArrayList<String> value) {
+	public DeviceSpecific(int device_id, ArrayList<String> key, ArrayList<String> value) {
 		this.id = device_id;
 		this.keyList = key;
 		this.valueList = value;
@@ -53,11 +53,11 @@ public class DeviceSpecific {
 		return this.valueList.get(index);
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

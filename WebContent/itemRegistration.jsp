@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%//deviceRegistration.jsp %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,9 +25,9 @@
   	text-align:center;
   }
   .MenuBar{
-  	width:100%; height:100%; background:blue;
+  	width:100%; height:100%; background:orange;
   	float:center; padding:15px;
-  	font-size:20px; color:white; font-weight:bold; text-decoration:none;
+  	font-size:20px; color:black; font-weight:bold; text-decoration:none;
   	text-align:center;
   }
   .InputText{
@@ -53,7 +54,7 @@
 			return false;
 		}
 		if (no == 1) {
-			document.myform.action = "actionRegistration.jsp";
+			document.myform.action = "actionItemRegistration.jsp";
 		} else if (no == 2) {
 			document.myform.action = "test2.jsp";
 		} else if (no == 3) {
@@ -71,35 +72,42 @@
         window.history.back();
         	}
     </script>
-    <title>Device location registration</title>
+    <title>Device Item Register</title>
 </head>
 
 <body>
 <div class="MainContent">
 	<form name='myform' action="DbSelect.jsp" method="post">
 	<div class="MenuBar">
-			<h1>Device Location Registration</h1>
+			<h1>Device Item Register</h1>
 			<button  type="button" class="back" onclick="goBack();">뒤로가기</button></p>
 	</div>
 	<br><br>
 		<table id="example" border="3px" style="margin-left: auto; margin-right: auto;">
 			
 			<tr>
-				<th>Id</th>
+				<th>Model name</th>
 				<td><input type="text" class="InputText" name="model1" placeholder="입력" style="width:300px;height:30px;" /></td>
 			</tr>
 			<tr>
-				<th>Latitude</th>
+				<th>Device type</th>
 				<td><input type="text" class="InputText" name="dv1" placeholder="입력" style="width:300px;height:30px;" /></td>
 			</tr>
 			<tr>
-				<th>Longitude</th>
+				<th>Manufacturer</th>
 				<td><input type="text" class="InputText" name="manufac1" placeholder="입력" style="width:300px;height:30px;" />
 			</tr>
+			
+			<tr>
+				<th>Category</th>
+				<td><input type="text" class="InputText" name="cate1" placeholder="입력" style="width:300px;height:30px;" />
+			</tr>
+			
 			<tr>
 				<th>등록</th>
 				<td><button type="button" onclick="check(1)"style="width:304px;height:30px;">등록</button></td>
 			</tr>
+	
 				</table>
 			</form>
 		</div>

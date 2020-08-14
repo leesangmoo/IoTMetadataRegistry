@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%//deviceRegistration.jsp %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +24,9 @@
   	text-align:center;
   }
   .MenuBar{
-  	width:100%; height:100%; background:orange;
+  	width:100%; height:100%; background:blue;
   	float:center; padding:15px;
-  	font-size:20px; color:black; font-weight:bold; text-decoration:none;
+  	font-size:20px; color:white; font-weight:bold; text-decoration:none;
   	text-align:center;
   }
   .InputText{
@@ -43,18 +42,18 @@
 	type="text/javascript"></script>
 <script type="text/javascript">
 	function check(no) {
-		if (myform.model1.value == "" || myform.dv1.value == ""
-				|| myform.manufac1.value == "" ) {
+		if (myform.item_id.value == "" || myform.deployment_time.value == ""
+				|| myform.lat.value == "" ) {
 			alert("값을 입력해 주세요");
 
-			myform.model1.focus();
-			myform.dv1.focus();
-			myform.manufac1.focus();
+			myform.item_id.focus();
+			myform.deployment_time.focus();
+			myform.lat.focus();
 	
 			return false;
 		}
 		if (no == 1) {
-			document.myform.action = "actionRegistration.jsp";
+			document.myform.action = "actionDeviceRegistration.jsp";
 		} else if (no == 2) {
 			document.myform.action = "test2.jsp";
 		} else if (no == 3) {
@@ -72,42 +71,57 @@
         window.history.back();
         	}
     </script>
-    <title>Deivce Register</title>
+    <title>Device Registration</title>
 </head>
 
 <body>
 <div class="MainContent">
 	<form name='myform' action="DbSelect.jsp" method="post">
 	<div class="MenuBar">
-			<h1>Device Register</h1>
+			<h1>Device Registration</h1>
 			<button  type="button" class="back" onclick="goBack();">뒤로가기</button></p>
 	</div>
 	<br><br>
 		<table id="example" border="3px" style="margin-left: auto; margin-right: auto;">
-			
 			<tr>
-				<th>Model name</th>
-				<td><input type="text" class="InputText" name="model1" placeholder="입력" style="width:300px;height:30px;" /></td>
-			</tr>
-			<tr>
-				<th>Device type</th>
-				<td><input type="text" class="InputText" name="dv1" placeholder="입력" style="width:300px;height:30px;" /></td>
-			</tr>
-			<tr>
-				<th>Manufacturer</th>
-				<td><input type="text" class="InputText" name="manufac1" placeholder="입력" style="width:300px;height:30px;" />
+				<th>Device name</th>
+				<td><input type="text" class="InputText" name="device_name" placeholder="입력" style="width:300px;height:30px;" /></td>
 			</tr>
 			
 			<tr>
-				<th>Category</th>
-				<td><input type="text" class="InputText" name="cate1" placeholder="입력" style="width:300px;height:30px;" />
+				<th>Item id</th>
+				<td><input type="text" class="InputText" name="item_id" placeholder="입력" style="width:300px;height:30px;" /></td>
+			</tr>
+			
+			<tr>
+				<th>System id</th>
+				<td><input type="text" class="InputText" name="system_id" placeholder="입력" style="width:300px;height:30px;" /></td>
+			</tr>
+			
+			<tr>
+				<th>Deployment time</th>
+				<td><input type="text" class="InputText" name="deployment_time" placeholder="입력" style="width:300px;height:30px;" /></td>
+			</tr>
+			
+			<tr>
+				<th>Deployment location</th>
+				<td><input type="text" class="InputText" name="deployment_location" placeholder="입력" style="width:300px;height:30px;" /></td>
+			</tr>
+			
+			<tr>
+				<th>Latitude</th>
+				<td><input type="text" class="InputText" name="lat" placeholder="입력" style="width:300px;height:30px;" /></td>
+			</tr>
+			
+			<tr>
+				<th>Longitude</th>
+				<td><input type="text" class="InputText" name="lon" placeholder="입력" style="width:300px;height:30px;" />
 			</tr>
 			
 			<tr>
 				<th>등록</th>
 				<td><button type="button" onclick="check(1)"style="width:304px;height:30px;">등록</button></td>
 			</tr>
-	
 				</table>
 			</form>
 		</div>

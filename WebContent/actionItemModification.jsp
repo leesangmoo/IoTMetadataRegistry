@@ -8,7 +8,7 @@
 <!-- Global metadata 수정 -->
 <%
 	request.setCharacterEncoding("UTF-8");
-	String id = (String)request.getParameter("id");
+	int id = Integer.parseInt(request.getParameter("id"));
 	System.out.println(id);
 	String model_name = (String)request.getParameter("model_name");
 	String device_type = (String)request.getParameter("device_type");
@@ -21,18 +21,18 @@
 	Class.forName("com.mysql.jdbc.Driver");
 
 	try{
-	String jdbcDriver = "jdbc:mysql://localhost:3306/jsptest?"+"useUnicode=true&characterEncoding=euckr";
-	String dbUser = "jspid";
-	String dbPass = "jsppass";
+	String jdbcDriver = "jdbc:mysql://203.234.62.115:3306/MetadataRegistry?"+"useUnicode=true&characterEncoding=euckr";
+	String dbUser = "root";
+	String dbPass = "1234";
 
 	conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
 
-	pstmt = conn.prepareStatement("update device_register_table set model_name=?, device_type=?, manufacturer=?, category=? where id=?");
+	pstmt = conn.prepareStatement("update global_metadata set model_name=?, device_type=?, manufacturer=?, category=? where item_id=?");
 	pstmt.setString(1, model_name);
 	pstmt.setString(2, device_type);
 	pstmt.setString(3, manufacturer);
 	pstmt.setString(4, category);
-	pstmt.setString(5, id);
+	pstmt.setInt(5, id);
 	pstmt.executeUpdate();
 	//pstmt.setString(5, time);
 
@@ -77,27 +77,30 @@
 	DeviceSpecific new_ds = new DeviceSpecific();
 	
 	try{
-	 DBManager dbm = new DBManager();
-	 String jdbcUrl= "jdbc:mysql://localhost:3306/jsptest" ;
-     String dbId="jspid";
-     String dbPass= "jsppass";
+	 //DBManager dbm = new DBManager();
+	 //String jdbcUrl= "jdbc:mysql://localhost:3306/jsptest" ;
+	 //String dbId="jspid";
+     //String dbPass= "jsppass";
+     String jdbcUrl= "jdbc:mysql://203.234.62.115:3306/MetadataRegistry" ;
+     String dbId="root";
+     String dbPass= "1234";
 
      Class.forName("com.mysql.jdbc.Driver");
      conn2=DriverManager.getConnection(jdbcUrl,dbId ,dbPass );
  	
-     pstmt2 = conn2.prepareStatement("DELETE FROM specific_metadata WHERE id=?");
-	 pstmt2.setString(1, id);
+     pstmt2 = conn2.prepareStatement("DELETE FROM specific_metadata WHERE item_id=?");
+	 pstmt2.setInt(1, id);
 	 pstmt2.executeUpdate();
      
-     String sql = "insert into specific_metadata (id, metadata_key, metadata_value) values (?,?,?) ON DUPLICATE KEY UPDATE id=?, metadata_key=?, metadata_value=?";
+     String sql = "insert into specific_metadata (item_id, metadata_key, metadata_value) values (?,?,?) ON DUPLICATE KEY UPDATE item_id=?, metadata_key=?, metadata_value=?";
 
      pstmt2 = conn2.prepareStatement(sql);
     
      for(int i = 0; i < new_keylist.size();i++){
-    		 pstmt2.setString(1, id);
+    		 pstmt2.setInt(1, id);
              pstmt2.setString(2, new_keylist.get(i));
              pstmt2.setString(3, new_valuelist.get(i));
-             pstmt2.setString(4, id);
+             pstmt2.setInt(4, id);
              pstmt2.setString(5, new_keylist.get(i));
              pstmt2.setString(6, new_valuelist.get(i));
              pstmt2.executeUpdate();    		 
@@ -117,11 +120,20 @@
 			conn2.close();
 		}catch(SQLException sqle){}
 	}
-}
-
-	
+}	
 %>
+<!-- Specific metadta 수정할시 테이블 자동 변경 -->
+<%
+DBManager dbm = new DBManager();
+dbm.connect();
 
+DeviceList dl = dbm.getModifyDeviceList(id);
+dbm.disconnect();
+
+AutoDBConnector adb = new AutoDBConnector();
+adb.deleteTable(dl.gettable_name());
+adb.createTable(id, dl.gettable_name());
+%>
 <html>
 <head>
 <script type="text/javascript">   

@@ -10,14 +10,16 @@
 	type="text/javascript"></script>
     
 <%
-	String device_id = (String)request.getParameter("id");
+	int item_id = Integer.parseInt(request.getParameter("id"));
 
 	DBManager dbm = new DBManager();
+	//SpecificDBManager dbm2 = new SpecificDBManager();
 	dbm.connect();
-	DeviceCommon dc = dbm.getDeviceCommon(device_id);
-	DeviceSpecific ds = dbm.getDeviceSpecific(device_id);
+	//dbm2.connect();
+	DeviceCommon dc = dbm.getDeviceCommon(item_id);
+	DeviceSpecific ds = dbm.getDeviceSpecific(item_id);
 	dbm.disconnect();	
-
+//	dbm2.disconnect();
 	for(int i=0; i<ds.size(); i++) {
 		System.out.println("key " + ds.getKey(i));
 		System.out.println("value " + ds.getValue(i));
@@ -81,7 +83,7 @@
         window.history.back();
         	}
     </script>
-<title>Device Metadata Detail</title>
+<title>Device Item Metadata Detail</title>
 </head>
 
 
@@ -89,17 +91,17 @@
 	<div class="MainContent">
 	<form name='myform6' action="ReviseFile.jsp" method="POST">
 	<div class="MenuBar">
-		<h1>Device Detail </h1>
-			<button type="button" onclick="location.href='deviceList.jsp'">디바이스 목록 보기</button>
-			<button type="button" onclick="location.href='deviceModification.jsp?id=<%=dc.getId()%>'">수정</button>
+		<h1>Device Item Detail </h1>
+			<button type="button" onclick="location.href='deviceItemList.jsp'">아이템 목록 보기</button>
+			<button type="button" onclick="location.href='deviceItemModification.jsp?id=<%=dc.getId()%>'">수정</button>
 			<button type="button" onclick="location.href='actionDetail.jsp?id=<%=dc.getId()%>'">삭제</button>
 			<button type="button" onclick="goBack();">뒤로 가기</button>
 	</div>
-	<h2>Device ID : <%= dc.getId() %> </h2>
+	<h2>Item id : <%= dc.getId() %> </h2>
 	<h2 style = "text-align: left;">Global Metadata</h2>
 	<table name="tb1" id="tb1" width="100%" border="1">
 			<tr>
-				<th>Id</th>
+				<th>Item id</th>
 				<td> 
 				<input type="text" class="no-border" id="id" name="id" value="<%= dc.getId() %>" style = "text-align : center;"></td>
 			</tr>

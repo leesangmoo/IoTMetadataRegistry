@@ -6,10 +6,11 @@ import structures.*;
 
 public class DBManager {
 	public static String DB_DRIVERCLASS = "com.mysql.jdbc.Driver";
-	public static String DEFAULT_IP = "localhost";
-	public static String DEFAULT_DATABASE = "jsptest";
-	public static String DEFAULT_ID = "jspid";
-	public static String DEFAULT_PW = "jsppass";
+	public static String DEFAULT_IP = "203.234.62.115";
+	public static String DEFAULT_DATABASE = "MetadataRegistry";
+	public static String DEFAULT_ID = "root";
+	public static String DEFAULT_PW = "1234";
+	
 	public static ArrayList<String> kl = new ArrayList<String>();
 	public Connection conn;
 	public String jdbcDriver; 
@@ -48,12 +49,12 @@ public class DBManager {
 		return true;
 	}
 
-	public ArrayList<DeviceCommon> getDeviceList() {
+	public ArrayList<DeviceCommon> getGlobalList() {
 		ArrayList<DeviceCommon> devList = new ArrayList<DeviceCommon>(); 
 		try {
 			ResultSet rs = null;
-			String sql = "select id, model_name, registration_time, device_type, manufacturer,"
-						+ "category from device_register_table";
+			String sql = "select item_id, model_name, registration_time, device_type, manufacturer,"
+						+ "category from global_metadata";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -79,13 +80,45 @@ public class DBManager {
 		return devList;
 	}
 	
-	public DeviceCommon getDeviceCommon(String device_id) {
+	public ArrayList<DeviceList> getDeviceList() {
+		ArrayList<DeviceList> devList = new ArrayList<DeviceList>(); 
+		try {
+			ResultSet rs = null;
+			String sql = "select device_id, item_id, system_id, device_name, table_name, deployment_time, deployment_location, latitude, longitude from device_register";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				DeviceList dc = new DeviceList();
+				dc.setdevice_id(rs.getInt(1));
+				dc.setitem_id(rs.getInt(2));
+				dc.setsystem_id(rs.getString(3));
+				dc.setdevice_name(rs.getString(4));
+				dc.settable_name(rs.getString(5));
+				dc.setdeployment_time(rs.getString(6));
+				dc.setdeployment_location(rs.getString(7));
+				dc.setlatitude(rs.getString(8));
+				dc.setlongitude(rs.getString(9));
+				System.out.println(dc.toString());
+				
+				devList.add(dc);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return devList;
+	}
+	
+	public DeviceCommon getDeviceCommon(int item_id) {
 		DeviceCommon dc = new DeviceCommon(); 
 		try {
 			ResultSet rs = null;
-			String sql = "select id, model_name, registration_time, device_type, manufacturer,"
-						+ "category from device_register_table"
-						+ " where id = '" + device_id + "';";
+			String sql = "select item_id, model_name, registration_time, device_type, manufacturer,"
+						+ "category from global_metadata"
+						+ " where item_id = '" + item_id + "';";
 			
 			System.out.println(sql);
 			
@@ -110,13 +143,74 @@ public class DBManager {
 		return dc;
 	}
 	
-	public DeviceSpecific getDeviceSpecific(String device_id) {
+	public DeviceList getModifyDeviceList(int item_id){
+		DeviceList dl = new DeviceList(); 
+		try {
+			ResultSet rs = null;
+			String sql = "select device_id, item_id, system_id, device_name, table_name, deployment_time, deployment_location, latitude, longitude"
+					+" from device_register" 
+					+ " where item_id = '" + item_id + "';";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				dl.setdevice_id(rs.getInt(1));
+				dl.setitem_id(rs.getInt(2));
+				dl.setsystem_id(rs.getString(3));
+				dl.setdevice_name(rs.getString(4));
+				dl.settable_name(rs.getString(5));
+				dl.setdeployment_time(rs.getString(6));
+				dl.setdeployment_location(rs.getString(7));
+				dl.setlatitude(rs.getString(8));
+				dl.setlongitude(rs.getString(9));
+				System.out.println(dl.toString());
+			}
+			rs.close();
+			pstmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return dl;
+	}
+	public DeviceList getModifyDeviceIdList(int device_id){
+		DeviceList dl = new DeviceList(); 
+		try {
+			ResultSet rs = null;
+			String sql = "select device_id, item_id, system_id, device_name, table_name, deployment_time, deployment_location, latitude, longitude"
+					+" from device_register" 
+					+ " where device_id = '" + device_id + "';";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				dl.setdevice_id(rs.getInt(1));
+				dl.setitem_id(rs.getInt(2));
+				dl.setsystem_id(rs.getString(3));
+				dl.setdevice_name(rs.getString(4));
+				dl.settable_name(rs.getString(5));
+				dl.setdeployment_time(rs.getString(6));
+				dl.setdeployment_location(rs.getString(7));
+				dl.setlatitude(rs.getString(8));
+				dl.setlongitude(rs.getString(9));
+				System.out.println(dl.toString());
+			}
+			rs.close();
+			pstmt.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return dl;
+	}
+	
+	public DeviceSpecific getDeviceSpecific(int item_id) {
 		DeviceSpecific ds = new DeviceSpecific(); 
 		try {
 			ResultSet rs = null;
-			String sql = "select id, metadata_key,"
+			String sql = "select item_id, metadata_key,"
 					+"metadata_value from specific_metadata"
-					+" where id = '" + device_id + "';";
+					+" where item_id = '" + item_id + "';";
 			
 			System.out.println(sql);
 			
@@ -125,7 +219,7 @@ public class DBManager {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				ds.setId(rs.getString(1));
+				ds.setId(rs.getInt(1));
 				ds.add(rs.getString(2), rs.getString(3));
 			}
 			

@@ -53,7 +53,7 @@
         function goBack(){
         window.history.back();
         	}
-        window.location.replace("deviceList.jsp");
+        window.location.replace("deviceItemList.jsp");
     </script>
 </head>
 
@@ -71,7 +71,7 @@
 
 <%
 request.setCharacterEncoding("UTF-8");
-	String id = request.getParameter("usrid1");
+	String id = "Dsem-";
 	Timestamp now_timestamp = new Timestamp(System.currentTimeMillis());
 	String mn = request.getParameter("model1");
 	String dv = request.getParameter("dv1");
@@ -83,17 +83,17 @@ request.setCharacterEncoding("UTF-8");
 
   try{
      
-        String jdbcUrl= "jdbc:mysql://localhost:3306/jsptest" ;
-        String dbId="jspid";
-        String dbPass= "jsppass";
+		String jdbcUrl= "jdbc:mysql://203.234.62.115:3306/MetadataRegistry";
+        String dbId="root";
+        String dbPass= "1234";
  
-        Class.forName( "com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
         conn=DriverManager.getConnection(jdbcUrl,dbId ,dbPass );
         
-        String sql = "insert into device_register_table (id, model_name, registration_time, device_type, manufacturer, category) values (?,?,?,?,?,?)";
+        String sql = "insert into global_metadata (item_id, model_name, registration_time, device_type, manufacturer, category) values (?,?,?,?,?,?)";
         pstmt = conn.prepareStatement(sql);
         
-        pstmt.setString(1, null);
+        pstmt.setString(1,null);
         pstmt.setString(2, mn);
         pstmt.setTimestamp(3, now_timestamp);
         pstmt.setString(4, dv);

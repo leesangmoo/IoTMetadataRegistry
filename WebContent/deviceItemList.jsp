@@ -4,11 +4,11 @@
 	pageEncoding="UTF-8"%>
 
 <%
-	//DBManager dbm = new DBManager();
 	DBManager dbm = new DBManager();
+
 	dbm.connect();
 
-	ArrayList<DeviceList> dcList = dbm.getDeviceList();
+	ArrayList<DeviceCommon> dcList = dbm.getGlobalList();
 	
 	dbm.disconnect();
 %>
@@ -21,7 +21,7 @@
   	  	border-collapse: collapse; 
     }
 	table {
-		width: 103%;
+		width: 85%;
 		margin-left: auto;
 		margin-right: auto;
 		border: 1px solid #444444;
@@ -38,9 +38,9 @@
   		text-align:center;
   	}
   	.MenuBar {
-  		width:100%; height:100%; background:blue;
+  		width:100%; height:100%; background:orange;
   		float:center; padding:15px;
-  		font-size:20px; color:white; font-weight:bold; text-decoration:none;
+  		font-size:20px; color:black; font-weight:bold; text-decoration:none;
   		text-align:center;
   	}
   	.InputText {
@@ -76,14 +76,14 @@
 		window.history.back();
 	}
 </script>
-<title>Device List</title>
+<title>Device Item List</title>
 </head>
 
 <body>
 	<div class="MainContent">
 	<form name='myform' action="db2.jsp" method="post">
 	<div class="MenuBar">
-			 <h1>Device List</h1>
+			 <h1>Device Item List</h1>
 			 <button type="button" onclick="location.href='itemRegistration.jsp'">아이템 등록</button>
 			 <button type="button" onclick="location.href='deviceItemList.jsp'">아이템 목록</button>&nbsp;&nbsp;
 			 <button type="button" onclick="location.href='deviceRegistration.jsp'">디바이스 등록</button>
@@ -91,47 +91,34 @@
 	</div>
 		<table id="tb1" width="100%" border="1">
 				<tr>
-					<th>Device id</th>
-					<th>Device name</th>
-					<th>System id</th>
 					<th>Item id</th>
+					<th>Registration time</th>
 					<th>Model name</th>
-					<th>Table name</th>
-					<th>Deployment time</th>
-					<th>Deployment location</th>
-					<th>Latitude</th>
-					<th>Longitude</th>
-					<th>Modify</th>
-					<th>Delete</th>
+					<th>Device type</th>
+					<th>Manufacturer</th>
+					<th>Category</th>
+					<th>Detail</th>
 				</tr>
 			<tbody>
 				<%
-				
 					for(int i=0; i<dcList.size(); i++) {
-						DeviceList dc = dcList.get(i); 
+						DeviceCommon dc = dcList.get(i); 
 				%>
 				<tr>
-					<td><%=dc.getdevice_id()%></td>
-					<td><%= dc.getdevice_name()%></td>
-					<td><%= dc.getsystem_id() %></td>
-					<td><%= dc.getitem_id() %></td>
-					<%
-					DBManager dbm2 = new DBManager();
-					dbm2.connect();
-					DeviceCommon dc2 = dbm2.getDeviceCommon(dc.getitem_id());
-					dbm2.disconnect();
-					%>
-					<td><%=dc2.getmodel_name() %></td>
-					<td><%= dc.gettable_name() %></td>
-					<td><%= dc.getdeployment_time() %></td>
-					<td><%= dc.getdeployment_location() %></td>
-					<td><%= dc.getlatitude()%></td>
-					<td><%= dc.getlongitude() %></td>
-					<td>
-						<button type="button" onclick="location.href='deviceModification.jsp?id=<%=dc.getitem_id()%>'" target="_blank" width=" 600px";>modify</button>
+					<td><%= dc.getId() %></td>
+					<td><%= dc.getregistration_time() %></td>
+					<td><%= dc.getmodel_name()%></td>
+					<td><%= dc.getDevice_type() %></td>
+					<td><%= dc.getManufacturer() %></td>
+					<td><%= dc.getCategory()%></td>
+					<%-- <td>
+						<button type="button"
+							onclick="location.href='Jsontest1.jsp?id=<%=dc.getId()%>'">Add</button>
 					</td>
+					--%>
 					<td>
-						<button type="button" onclick="location.href='actionDeviceList.jsp?id=<%=dc.getdevice_id()%>&item_id=<%=dc.getitem_id() %>'" target="_blank" width=" 600px";>delete</button>
+						<button type="button"
+							onclick="location.href='deviceDetail.jsp?id=<%=dc.getId()%>'">detail</button>
 					</td>
 				</tr>
 
