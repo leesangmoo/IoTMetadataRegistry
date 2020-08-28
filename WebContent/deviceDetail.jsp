@@ -92,10 +92,10 @@
 	<form name='myform6' action="ReviseFile.jsp" method="POST">
 	<div class="MenuBar">
 		<h1>Device Item Detail </h1>
-			<button type="button" onclick="location.href='deviceItemList.jsp'">아이템 목록 보기</button>
-			<button type="button" onclick="location.href='deviceItemModification.jsp?id=<%=dc.getId()%>'">수정</button>
+			<button type="button" onclick="location.href='deviceItemList.jsp'">아이템 목록</button>
+			<button type="button" onclick="location.href='deviceItemModification.jsp?id=<%=dc.getId()%>'">아이템 수정</button>
+			<button type="button" onclick="goBack();">뒤로 가기</button>&nbsp;&nbsp;&nbsp;
 			<button type="button" onclick="location.href='actionDetail.jsp?id=<%=dc.getId()%>'">삭제</button>
-			<button type="button" onclick="goBack();">뒤로 가기</button>
 	</div>
 	<h2>Item id : <%= dc.getId() %> </h2>
 	<h2 style = "text-align: left;">Global Metadata</h2>

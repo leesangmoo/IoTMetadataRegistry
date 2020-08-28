@@ -21,7 +21,7 @@
   	  	border-collapse: collapse; 
     }
 	table {
-		width: 85%;
+		width: 103%;
 		margin-left: auto;
 		margin-right: auto;
 		border: 1px solid #444444;

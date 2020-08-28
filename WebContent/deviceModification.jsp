@@ -84,7 +84,7 @@
 	<form name='myform6' action="actionDeviceModification.jsp" method="POST">
 		<div class="MenuBar">
 			<h1> Modifying Device Metadata </h1>
-			<button type="button" onclick="location.href='deviceList.jsp'">아이템 목록 보기</button>
+			<button type="button" onclick="location.href='deviceList.jsp'">디바이스 목록 </button>
 			<button type="submit">수정 완료</button>
 			<button type="button" onclick="goBack();">뒤로 가기</button>
 		</div>

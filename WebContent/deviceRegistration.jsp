@@ -78,7 +78,7 @@
 <div class="MainContent">
 	<form name='myform' action="DbSelect.jsp" method="post">
 	<div class="MenuBar">
-			<h1>Device Registration</h1>
+			<h1>Device Register</h1>
 			<button  type="button" class="back" onclick="goBack();">뒤로가기</button></p>
 	</div>
 	<br><br>

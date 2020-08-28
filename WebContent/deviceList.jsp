@@ -102,7 +102,8 @@
 					<th>Latitude</th>
 					<th>Longitude</th>
 					<th>Modify</th>
-					<th>Delete</th>
+					<th>Delete list</th>
+					<th>Delete list and table</th>
 				</tr>
 			<tbody>
 				<%
@@ -129,6 +130,9 @@
 					<td><%= dc.getlongitude() %></td>
 					<td>
 						<button type="button" onclick="location.href='deviceModification.jsp?id=<%=dc.getitem_id()%>'" target="_blank" width=" 600px";>modify</button>
+					</td>
+					<td>
+						<button type="button" onclick="location.href='actionDeviceList2.jsp?id=<%=dc.getdevice_id()%>&item_id=<%=dc.getitem_id() %>'" target="_blank" width=" 600px";>delete</button>
 					</td>
 					<td>
 						<button type="button" onclick="location.href='actionDeviceList.jsp?id=<%=dc.getdevice_id()%>&item_id=<%=dc.getitem_id() %>'" target="_blank" width=" 600px";>delete</button>
