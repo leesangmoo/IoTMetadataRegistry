@@ -54,17 +54,16 @@ import="java.util.*, webmodules.*, structures.*" %>
 					} catch (SQLException ex) {
 					}
 			}
-		%>
-<!-- 자동 테이블 삭제 코드 -->
-		<%
-		DBManager dbm = new DBManager();
-		dbm.connect();
-		DeviceList dl = dbm.getModifyDeviceList(send_id);
-		dbm.disconnect();
 
-		AutoDBConnector adb = new AutoDBConnector();
-		adb.deleteTable(dl.gettable_name());
+			// 자동 테이블 삭제 -- 보류
+			// 
+//			DBManager dbm = new DBManager();
+				//dbm.connect();
+//				DeviceInfo di = dbm.getDeviceInfo(send_id);
+//				dbm.disconnect();
 
+				//AutoDBConnector adb = new AutoDBConnector();
+				//adb.deleteTable(di.gettable_name());
 		%>
 		
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

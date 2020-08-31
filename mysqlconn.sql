@@ -1,31 +1,41 @@
 show databases;
 
-create table device_register_table (
-	id int(10) not null auto_increment primary key,
-	model_name varchar(30) not null,
-	registration_time datetime not null,
-	device_type varchar(30) not null,
-	manufacturer varchar(30) not null,
-	category varchar(30) not null
-);
+CREATE TABLE DeviceRegistry.`global_metadata` (
+  `item_id` int(11) NOT NULL AUTO_INCREMENT,
+  `model_name` varchar(500) NOT NULL,
+  `registration_time` datetime NOT NULL,
+  `device_type` varchar(500) NOT NULL,
+  `manufacturer` varchar(500) NOT NULL,
+  `category` varchar(100) NOT NULL,
+  PRIMARY KEY (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-drop table device_register_table;
+drop table DeviceRegistry.`global_metadata`;
 
-create table specific_metadata (
-	id varchar(20) not null,
-	metadata_key varchar(30) not null,
-	metadata_value varchar(30) not null
-);
 
-create table device_register (
-	id int(10) not null auto_increment primary key,
-	item_id varchar(50) not null,
-	office_name varchar(50) not null,
-	deployment_time varchar(100) not null,
-	latitude double not null,
-	longitude double not null
-);
 
-drop table device_register; 
+CREATE TABLE DeviceRegistry.`specific_metadata` (
+  `item_id` int(11) NOT NULL,
+  `metadata_key` varchar(500) NOT NULL,
+  `metadata_value` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-select last_insert_id() from device_register_table;
+drop table DeviceRegistry.`specific_metadata`;
+
+
+
+CREATE TABLE DeviceRegistry.`device_list` (
+  `device_id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_id` int(11) NOT NULL,
+  `system_id` varchar(100) NOT NULL,
+  `device_name` varchar(500) NOT NULL,
+  `table_name` varchar(100) NOT NULL,
+  `deployment_time` datetime NOT NULL,
+  `deployment_location` varchar(500) NOT NULL,
+  `latitude` double NOT NULL,
+  `longitude` double NOT NULL,
+  PRIMARY KEY (`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+drop table DeviceRegistry.`device_list`; 

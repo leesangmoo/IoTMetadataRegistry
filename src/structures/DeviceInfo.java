@@ -1,21 +1,22 @@
 package structures;
 
-public class DeviceList {
+public class DeviceInfo {
 	private int device_id;
 	private int item_id;
 	private String system_id;
 	private String device_name;
+	private String item_name;
 	private String table_name;
 	private String deployment_time;
 	private String deployment_location;
 	private String latitude;
 	private String longitude;
 
-	public DeviceList() {
+	public DeviceInfo() {
 		this(0, 0, "", "", "", "", "", "", "");
 	}
 
-	public DeviceList(int id, int item_id, String system_id, String device_name, String table_name, String deployment_time, 
+	public DeviceInfo(int id, int item_id, String system_id, String device_name, String table_name, String deployment_time, 
 			String deployment_location, String latitude, String longitude) {
 		this.device_id = id;
 		this.item_id = item_id;
@@ -103,6 +104,14 @@ public class DeviceList {
 	public String toString() {
 		return this.device_id + " / " + this.item_id + " / "+ this.system_id + " / "+ 
 	this.device_name + " / " + this.table_name + " / " + this.deployment_time + " / " + this.deployment_location + " / " + this.latitude + " / " + this.longitude;
+	}
+
+	public String getItem_name() {
+		return item_name;
+	}
+
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
 	}
 
 }

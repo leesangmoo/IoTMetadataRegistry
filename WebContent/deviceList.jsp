@@ -1,14 +1,18 @@
 <%@page import="java.util.*, webmodules.*, structures.*"%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 
 <%
-	//DBManager dbm = new DBManager();
 	DBManager dbm = new DBManager();
 	dbm.connect();
 
-	ArrayList<DeviceList> dcList = dbm.getDeviceList();
+	ArrayList<DeviceInfo> dcList = dbm.getDeviceInfo();
+	
+	for (int i=0; i<dcList.size(); i++) {
+		DeviceInfo dl = dcList.get(i);
+		DeviceCommon dc = dbm.getDeviceCommon(dl.getitem_id());
+		dl.setItem_name(dc.getmodel_name());
+	}
 	
 	dbm.disconnect();
 %>
@@ -51,26 +55,9 @@
 </style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script location.href="./test?params="
-	+encodeURI(params); 
+<script location.href="./test?params=" + encodeURI(params); 
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
 	type="text/javascript"></script>
-<script type="text/javascript">
-	function check(no) {
-		if (no == 1) {
-			document.myform.action = "DbJson.jsp";
-		} else if (no == 2) {
-			document.myform.action = "FileSelect.jsp";
-		} else if (no == 3) {
-			document.myform.action = "db3.jsp";
-		} else if (no == 4) {
-			document.myform.action = "db4.jsp";
-		} else {
-			return;
-		}
-		document.myform.submit();
-	}
-</script>
 <script type="text/javascript">
 	function goBack() {
 		window.history.back();
@@ -81,7 +68,6 @@
 
 <body>
 	<div class="MainContent">
-	<form name='myform' action="db2.jsp" method="post">
 	<div class="MenuBar">
 			 <h1>Device List</h1>
 			 <button type="button" onclick="location.href='itemRegistration.jsp'">아이템 등록</button>
@@ -103,39 +89,32 @@
 					<th>Longitude</th>
 					<th>Modify</th>
 					<th>Delete list</th>
-					<th>Delete list and table</th>
+					<th>Delete list with Measurement table</th>
 				</tr>
 			<tbody>
 				<%
-				
 					for(int i=0; i<dcList.size(); i++) {
-						DeviceList dc = dcList.get(i); 
+								DeviceInfo dl = dcList.get(i);
 				%>
 				<tr>
-					<td><%=dc.getdevice_id()%></td>
-					<td><%= dc.getdevice_name()%></td>
-					<td><%= dc.getsystem_id() %></td>
-					<td><%= dc.getitem_id() %></td>
-					<%
-					DBManager dbm2 = new DBManager();
-					dbm2.connect();
-					DeviceCommon dc2 = dbm2.getDeviceCommon(dc.getitem_id());
-					dbm2.disconnect();
-					%>
-					<td><%=dc2.getmodel_name() %></td>
-					<td><%= dc.gettable_name() %></td>
-					<td><%= dc.getdeployment_time() %></td>
-					<td><%= dc.getdeployment_location() %></td>
-					<td><%= dc.getlatitude()%></td>
-					<td><%= dc.getlongitude() %></td>
+					<td><%= dl.getdevice_id()%></td>
+					<td><%= dl.getdevice_name()%></td>
+					<td><%= dl.getsystem_id() %></td>
+					<td><%= dl.getitem_id() %></td>
+					<td><%= dl.getItem_name() %></td>
+					<td><%= dl.gettable_name() %></td>
+					<td><%= dl.getdeployment_time() %></td>
+					<td><%= dl.getdeployment_location() %></td>
+					<td><%= dl.getlatitude()%></td>
+					<td><%= dl.getlongitude() %></td>
 					<td>
-						<button type="button" onclick="location.href='deviceModification.jsp?id=<%=dc.getitem_id()%>'" target="_blank" width=" 600px";>modify</button>
+						<button type="button" onclick="location.href='deviceModification.jsp?id=<%=dl.getitem_id()%>'" target="_blank" width="600px">modify</button>
 					</td>
 					<td>
-						<button type="button" onclick="location.href='actionDeviceList2.jsp?id=<%=dc.getdevice_id()%>&item_id=<%=dc.getitem_id() %>'" target="_blank" width=" 600px";>delete</button>
+						<button type="button" onclick="location.href='actionDeleteDevice.jsp?id=<%=dl.getdevice_id()%>&item_id=<%=dl.getitem_id() %>'" target="_blank" width="600px">delete</button>
 					</td>
 					<td>
-						<button type="button" onclick="location.href='actionDeviceList.jsp?id=<%=dc.getdevice_id()%>&item_id=<%=dc.getitem_id() %>'" target="_blank" width=" 600px";>delete</button>
+						<button type="button" onclick="location.href='actionDeleteDevicewTable.jsp?id=<%=dl.getdevice_id()%>&item_id=<%=dl.getitem_id() %>'" target="_blank" width="600px">delete</button>
 					</td>
 				</tr>
 

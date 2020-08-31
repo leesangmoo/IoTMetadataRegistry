@@ -57,14 +57,14 @@
 
 <!-- 자동 테이블 생성 -->
 <%
-DBManager dbm2 = new DBManager();
-dbm2.connect();
-DeviceList dl = dbm2.getModifyDeviceList(item_id);
-dbm2.disconnect();
+//	DBManager dbm2 = new DBManager();
+//dbm2.connect();
+//DeviceInfo dl = dbm2.getDeviceInfo(item_id);
+//dbm2.disconnect();
 
-AutoDBConnector adb = new AutoDBConnector();
-adb.deleteTable(dl.gettable_name());	
-adb.createTable(item_id, dl.gettable_name());
+//AutoDBConnector adb = new AutoDBConnector();
+//adb.deleteTable(dl.gettable_name());	
+//adb.createTable(item_id, dl.gettable_name());
 %>
 
 <html>

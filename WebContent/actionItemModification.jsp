@@ -124,15 +124,15 @@
 %>
 <!-- Specific metadta 수정할시 테이블 자동 변경 -->
 <%
-DBManager dbm = new DBManager();
-dbm.connect();
+//	DBManager dbm = new DBManager();
+//dbm.connect();
 
-DeviceList dl = dbm.getModifyDeviceList(id);
-dbm.disconnect();
+//DeviceInfo dl = dbm.getDeviceInfo(id);
+//dbm.disconnect();
 
-AutoDBConnector adb = new AutoDBConnector();
-adb.deleteTable(dl.gettable_name());
-adb.createTable(id, dl.gettable_name());
+//AutoDBConnector adb = new AutoDBConnector();
+//adb.deleteTable(dl.gettable_name());
+//adb.createTable(id, dl.gettable_name());
 %>
 <html>
 <head>

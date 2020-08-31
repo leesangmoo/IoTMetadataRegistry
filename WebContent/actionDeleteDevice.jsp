@@ -10,7 +10,7 @@ import="java.util.*, webmodules.*, structures.*" %>
 			
 			DBManager dbm2 = new DBManager();
 			dbm2.connect();
-			DeviceList dl = dbm2.getModifyDeviceList(item_id);
+			DeviceInfo dl = dbm2.getModifyDeviceInfo(item_id);
 			dbm2.disconnect();
 			
 			System.out.println(device_id + " <-- 해당 id 삭제 ");

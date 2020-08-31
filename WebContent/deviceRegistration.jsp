@@ -54,12 +54,6 @@
 		}
 		if (no == 1) {
 			document.myform.action = "actionDeviceRegistration.jsp";
-		} else if (no == 2) {
-			document.myform.action = "test2.jsp";
-		} else if (no == 3) {
-			document.myform.action = "db3.jsp";
-		} else if (no == 4) {
-			document.myform.action = "db4.jsp";
 		} else {
 			return;
 		}
