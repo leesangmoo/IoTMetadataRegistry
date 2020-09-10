@@ -56,22 +56,6 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
 	type="text/javascript"></script>
 <script type="text/javascript">
-	function check(no) {
-		if (no == 1) {
-			document.myform.action = "DbJson.jsp";
-		} else if (no == 2) {
-			document.myform.action = "FileSelect.jsp";
-		} else if (no == 3) {
-			document.myform.action = "db3.jsp";
-		} else if (no == 4) {
-			document.myform.action = "db4.jsp";
-		} else {
-			return;
-		}
-		document.myform.submit();
-	}
-</script>
-<script type="text/javascript">
 	function goBack() {
 		window.history.back();
 	}

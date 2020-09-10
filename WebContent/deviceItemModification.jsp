@@ -186,12 +186,6 @@
 		        ds_index++;
 		        
 		        $('#AddOption').append(contents); // 추가할 공간
-		        
-//		        $('.delRow').click(function(){ // 삭제기능
-//		        	--key_index;
-//					--value_index;
-//		            $(this).parent().parent().remove(); 
-//		        });
 		       
 		    });
 		</script>

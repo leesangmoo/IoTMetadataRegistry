@@ -50,7 +50,31 @@ public class DBManager {
 		}
 		return true;
 	}
+	
+	public void insertGlobalList(DeviceCommon dc) {
+		try {
+			String sql = "insert into deviceregistry.global_metadata (item_id, model_name, registration_time,"
+						+ " device_type, manufacturer, category)"
+						+ " values (?,?,?,?,?,?)";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
 
+			pstmt.setInt(1, dc.getId());
+			pstmt.setString(2, dc.getmodel_name());
+			pstmt.setTimestamp(3, dc.getregistration_time());
+			pstmt.setString(4, dc.getDevice_type());
+			pstmt.setString(5, dc.getManufacturer());
+			pstmt.setString(6, dc.getCategory());
+
+			pstmt.executeUpdate();
+
+			System.out.println("----------------------------------->>> 디바이스 등록 완료");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("----------------------------------->>> 디바이스 등록 실패");
+		}
+	}
+	
 	public ArrayList<DeviceCommon> getGlobalList() {
 		ArrayList<DeviceCommon> devList = new ArrayList<DeviceCommon>(); 
 		try {
@@ -64,7 +88,7 @@ public class DBManager {
 				DeviceCommon dc = new DeviceCommon();
 				dc.setId(rs.getInt(1));
 				dc.setmodel_name(rs.getString(2));
-				dc.setregistration_time(rs.getString(3));
+				dc.setregistration_time(rs.getTimestamp(3));
 				dc.setDevice_type(rs.getString(4));
 				dc.setManufacturer(rs.getString(5));
 				dc.setCategory(rs.getString(6));
@@ -80,6 +104,30 @@ public class DBManager {
 		}
 		
 		return devList;
+	}
+	
+	public void deleteGlobalTable(int item_id) {
+		try {
+			PreparedStatement pstmt = null;
+			pstmt = conn.prepareStatement("DELETE FROM deviceregistry.global_metadata WHERE item_id=?");
+			pstmt.setInt(1, item_id);
+			pstmt.executeUpdate();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteSpecificTable(int item_id) {
+		try {
+			PreparedStatement pstmt = null;
+			pstmt = conn.prepareStatement("DELETE FROM deviceregistry.specific_metadata WHERE item_id=?");
+			pstmt.setInt(1, item_id);
+			pstmt.executeUpdate();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public ArrayList<DeviceInfo> getDeviceInfo() {
@@ -132,7 +180,7 @@ public class DBManager {
 			while (rs.next()) {
 				dc.setId(rs.getInt(1));
 				dc.setmodel_name(rs.getString(2));
-				dc.setregistration_time(rs.getString(3));
+				dc.setregistration_time(rs.getTimestamp(3));
 				dc.setDevice_type(rs.getString(4));
 				dc.setManufacturer(rs.getString(5));
 				dc.setCategory(rs.getString(6));
@@ -154,8 +202,8 @@ public class DBManager {
 			String sql = "select dl.device_id, dl.item_id, dl.system_id, dl.device_name, dl.table_name,"
 						+ " dl.deployment_time, dl.deployment_location, dl.latitude, dl.longitude,"
 						+ " gt.model_name"
-						+ " from " + devicelist_table + "dl, "
-						+ global_table + "gt"
+						+ " from " + devicelist_table + " dl, "
+						+ global_table + " gt "
 						+ " where dl.item_id = " + item_id + " and "
 						+ " gt.item_id = dl.item_id;";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -213,7 +261,24 @@ public class DBManager {
 		
 		return dl;
 	}
-	
+	public void insertSpecificList(int id, ArrayList<String> keyList, ArrayList<String> valueList) {
+		try {
+			String sql = "insert into specific_metadata (item_id, metadata_key, metadata_value) values (?,?,?) ON DUPLICATE KEY UPDATE item_id=?, metadata_key=?, metadata_value=?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+		     for(int i = 0; i < keyList.size();i++){
+		    	 pstmt.setInt(1, id);
+		    	 pstmt.setString(2, keyList.get(i));
+		    	 pstmt.setString(3, valueList.get(i));
+		    	 pstmt.setInt(4, id);
+		    	 pstmt.setString(5, keyList.get(i));
+		    	 pstmt.setString(6, valueList.get(i));
+		    	 pstmt.executeUpdate();    		 
+		     }
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+		
 	public DeviceSpecific getDeviceSpecific(int item_id) {
 		DeviceSpecific ds = new DeviceSpecific(); 
 		try {
@@ -262,10 +327,45 @@ public class DBManager {
 		}
 		return device_id;
 	}
+	
+	public void updateGlobalList(DeviceCommon dc) {
+		try {
+			String sql = "update global_metadata set model_name=?, device_type=?, manufacturer=?, category=? where item_id=?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
 
+			pstmt.setString(1, dc.getmodel_name());
+			pstmt.setString(2, dc.getDevice_type());
+			pstmt.setString(3, dc.getManufacturer());
+			pstmt.setString(4, dc.getCategory());
+			pstmt.setInt(5, dc.getId());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void updateDeviceList(DeviceInfo di) {
+		try {
+			String sql = "update deviceregistry.device_list set item_id=?, system_id=?, device_name=?, deployment_time=?, deployment_location=?, latitude=?, longitude=? where device_id=?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, di.getitem_id());
+			pstmt.setString(2, di.getsystem_id());
+			pstmt.setString(3, di.getdevice_name());
+			pstmt.setString(4, di.getdeployment_time());
+			pstmt.setString(5, di.getdeployment_location());
+			pstmt.setString(6, di.getlatitude());
+			pstmt.setString(7, di.getlongitude());
+			pstmt.setInt(8, di.getdevice_id());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	public void updateDeviceTableName(int device_id, String table_name) {
 		try {
-			String sql = "update device_register set table_name=? where device_id=?";
+			String sql = "update deviceregistry.device_list set table_name=? where device_id=?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, table_name);
@@ -278,7 +378,7 @@ public class DBManager {
 	
 	public void insertDeviceList(DeviceInfo di) {
 		try {
-			String sql = "insert into device_register (item_id, system_id, device_name,"
+			String sql = "insert into deviceregistry.device_list (item_id, system_id, device_name,"
 						+ " table_name, deployment_time, deployment_location, latitude, longitude)"
 						+ " values (?,?,?,?,?,?,?,?)";
 			
@@ -356,7 +456,7 @@ public class DBManager {
 	// 테이블 삭제
 	public void deleteMeasurementTable(String table_name) {
 		try {
-			String deleteSql = "drop table " + devicemeasurement_db + "." + table_name;
+			String deleteSql = "drop table devicemeasurement." + table_name;
 
 			Statement stmt = this.conn.createStatement();
 			stmt.executeUpdate(deleteSql);

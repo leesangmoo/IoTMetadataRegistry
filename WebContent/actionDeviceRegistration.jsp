@@ -38,6 +38,7 @@
 	
 	DeviceInfo di = new DeviceInfo();
 	
+	di.setitem_id(Integer.parseInt(request.getParameter("item_id")));
 	di.setsystem_id(request.getParameter("system_id"));
 	di.setItem_name(dc.getmodel_name());
 	di.setdevice_name(request.getParameter("device_name"));

@@ -46,21 +46,15 @@
 		if (myform.model1.value == "" || myform.dv1.value == ""
 				|| myform.manufac1.value == "" ) {
 			alert("값을 입력해 주세요");
-
 			myform.model1.focus();
 			myform.dv1.focus();
 			myform.manufac1.focus();
-	
 			return false;
 		}
 		if (no == 1) {
 			document.myform.action = "actionItemRegistration.jsp";
 		} else if (no == 2) {
 			document.myform.action = "test2.jsp";
-		} else if (no == 3) {
-			document.myform.action = "db3.jsp";
-		} else if (no == 4) {
-			document.myform.action = "db4.jsp";
 		} else {
 			return;
 		}
@@ -84,7 +78,6 @@
 	</div>
 	<br><br>
 		<table id="example" border="3px" style="margin-left: auto; margin-right: auto;">
-			
 			<tr>
 				<th>Model name</th>
 				<td><input type="text" class="InputText" name="model1" placeholder="입력" style="width:300px;height:30px;" /></td>
@@ -107,7 +100,6 @@
 				<th>등록</th>
 				<td><button type="button" onclick="check(1)"style="width:304px;height:30px;">등록</button></td>
 			</tr>
-	
 				</table>
 			</form>
 		</div>

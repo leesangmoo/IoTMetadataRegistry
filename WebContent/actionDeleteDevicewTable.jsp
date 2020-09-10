@@ -2,6 +2,7 @@
 import="java.util.*, webmodules.*, structures.*" %>
 <%@page import="java.io.*, java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<!-- device list와 자동 생성 테이블 삭제하는 페이지 -->
 <%
 	int device_id = Integer.parseInt(request.getParameter("id"));
 	int item_id = Integer.parseInt(request.getParameter("item_id"));
@@ -9,14 +10,15 @@ import="java.util.*, webmodules.*, structures.*" %>
 	DBManager dbm = new DBManager();
 	dbm.connect();
 	
-	DeviceList dl = dbm.getModifyDeviceList(item_id);
+	DeviceInfo dl = dbm.getModifyDeviceIdList(device_id);
 	dbm.deleteDevice(device_id);
-
+	// 자동 생성 테이블 삭제 코드 
+	dbm.deleteMeasurementTable(dl.gettable_name());
 	dbm.disconnect();
 
 	// 자동 생성 테이블 삭제 코드
-	AutoDBConnector adb = new AutoDBConnector();
-	adb.deleteTable(dl.gettable_name());	
+//	AutoDBConnector adb = new AutoDBConnector();
+	//adb.deleteTable(dl.gettable_name());	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
