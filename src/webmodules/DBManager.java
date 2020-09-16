@@ -424,7 +424,7 @@ public class DBManager {
 			// specific_metadata 컬럼 받아오기
 			String select_sql = "select * from " + specific_table
 						+ " where item_id = " + item_id
-						+ " and (metadata_key like 'sensor-%' or metadata_key like 'actuator-%')";
+						+ " and (metadata_key like 'sensor-%')";
 
 			PreparedStatement pstmt = conn.prepareStatement(select_sql);
 			ResultSet rs = pstmt.executeQuery();
@@ -432,6 +432,18 @@ public class DBManager {
 			while (rs.next()) {
 				String key = rs.getString("metadata_value");
 				keyList.add(key);
+			}
+		
+			String select_sql2 = "select * from " + specific_table
+					+ " where item_id = " + item_id
+					+ " and (metadata_key like 'actuator-%')";
+
+			PreparedStatement pstmt2 = conn.prepareStatement(select_sql2);
+			ResultSet rs2 = pstmt2.executeQuery();
+		
+			while (rs2.next()) {
+			String key = rs2.getString("metadata_value");
+			keyList.add(key);
 			}
 
 			// 테이블 생성

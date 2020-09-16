@@ -5,15 +5,14 @@ import="java.util.*, webmodules.*, structures.*" %>
 <!-- device list와 자동 생성 테이블 삭제하는 페이지 -->
 <%
 	int device_id = Integer.parseInt(request.getParameter("id"));
-	int item_id = Integer.parseInt(request.getParameter("item_id"));
 	
 	DBManager dbm = new DBManager();
 	dbm.connect();
 	
-	DeviceInfo dl = dbm.getModifyDeviceIdList(device_id);
+	DeviceInfo di = dbm.getModifyDeviceIdList(device_id);
 	dbm.deleteDevice(device_id);
 	// 자동 생성 테이블 삭제 코드 
-	dbm.deleteMeasurementTable(dl.gettable_name());
+	dbm.deleteMeasurementTable(di.gettable_name());
 	dbm.disconnect();
 
 	// 자동 생성 테이블 삭제 코드
@@ -25,7 +24,7 @@ import="java.util.*, webmodules.*, structures.*" %>
 <head>
 
 <script type="text/javascript">
-window.location.replace("deviceList.jsp?id=<%= device_id %> ");
+window.location.replace("deviceList.jsp");
 </script>
 
 <title>삭제 m_delete.jsp</title>

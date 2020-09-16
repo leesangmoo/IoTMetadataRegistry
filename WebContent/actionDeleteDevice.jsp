@@ -6,7 +6,6 @@ import="java.util.*, webmodules.*, structures.*" %>
 <!-- device list만 삭제하는 페이지 -->
 		<%
 			int device_id = Integer.parseInt(request.getParameter("id"));
-			int item_id = Integer.parseInt(request.getParameter("item_id"));
 			
 			DBManager dbm = new DBManager();
 			dbm.connect();
@@ -17,7 +16,7 @@ import="java.util.*, webmodules.*, structures.*" %>
 <html>
 <head>
 <script type="text/javascript">
-window.location.replace("deviceList.jsp?id=<%= device_id %> ");
+window.location.replace("deviceList.jsp");
 </script>
 <title>삭제 m_delete.jsp</title>
 </head>
