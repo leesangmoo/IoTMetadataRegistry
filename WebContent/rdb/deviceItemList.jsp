@@ -1,4 +1,4 @@
-<%@page import="java.util.*, webmodules.*, structures.*"%>
+<%@page import="java.util.*, webmodules.mysql.*, structures.mysql.*"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>

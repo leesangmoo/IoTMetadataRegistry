@@ -1,5 +1,5 @@
 <%@page import="java.sql.*" pageEncoding="UTF-8" 
-import="java.util.*, webmodules.*, structures.*" %>
+import="java.util.*, webmodules.mysql.*, structures.mysql.*" %>
 <%@page import="java.io.*, java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!-- item detail 페이지에서  global, specific 삭제하는 페이지 -->

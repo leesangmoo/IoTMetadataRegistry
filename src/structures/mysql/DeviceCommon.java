@@ -1,4 +1,4 @@
-package structures;
+package structures.mysql;
 
 import com.sun.jmx.snmp.Timestamp;
 

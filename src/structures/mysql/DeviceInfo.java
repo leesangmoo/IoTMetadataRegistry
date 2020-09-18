@@ -1,4 +1,4 @@
-package structures;
+package structures.mysql;
 
 public class DeviceInfo {
 	private int device_id;

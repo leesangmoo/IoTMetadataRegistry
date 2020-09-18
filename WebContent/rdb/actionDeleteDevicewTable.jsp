@@ -1,5 +1,4 @@
-<%@page import="java.sql.*" pageEncoding="UTF-8" 
-import="java.util.*, webmodules.*, structures.*" %>
+<%@page import="java.sql.*" pageEncoding="UTF-8" import="java.util.*, webmodules.mysql.*, structures.mysql.*" %>
 <%@page import="java.io.*, java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!-- device list와 자동 생성 테이블 삭제하는 페이지 -->

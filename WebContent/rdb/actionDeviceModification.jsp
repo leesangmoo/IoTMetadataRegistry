@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
-<%@page import="java.io.*, java.util.*, structures.*, webmodules.*"%>
+<%@page import="java.io.*, java.util.*, structures.mysql.*, webmodules.mysql.*"%>
 <%//actionModification.jsp %>
 
 <!-- Device metadata 수정 -->

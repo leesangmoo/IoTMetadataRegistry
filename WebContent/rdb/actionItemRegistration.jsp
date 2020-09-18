@@ -1,5 +1,5 @@
-<%@page import="structures.DeviceCommon"%>
-<%@page import="webmodules.DBManager"%>
+<%@page import="structures.mysql.*"%>
+<%@page import="webmodules.mysql.*"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.Catch"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>

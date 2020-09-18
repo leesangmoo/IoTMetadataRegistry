@@ -1,4 +1,4 @@
-package structures;
+package structures.mysql;
 
 import java.util.*;
 

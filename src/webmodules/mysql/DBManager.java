@@ -1,8 +1,8 @@
-package webmodules;
+package webmodules.mysql;
 
 import java.sql.*;
 import java.util.*;
-import structures.*;
+import structures.mysql.*;
 
 public class DBManager {
 	public static String DB_DRIVERCLASS = "com.mysql.jdbc.Driver";
