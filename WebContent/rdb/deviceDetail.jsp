@@ -98,7 +98,7 @@
 			<button type="button" onclick="location.href='actionDetail.jsp?id=<%=dc.getId()%>'">삭제</button>
 	</div>
 	<h2>Item id : <%= dc.getId() %> </h2>
-	<h2 style = "text-align: left;">Global Metadata</h2>
+	<h2 style = "text-align: left;">Common Metadata</h2>
 	<table name="tb1" id="tb1" width="100%" border="1">
 			<tr>
 				<th>Item id</th>

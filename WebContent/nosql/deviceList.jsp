@@ -16,7 +16,7 @@
   	  	border-collapse: collapse; 
     }
 	table {
-		width: 88%;
+		width: 103%;
 		margin-left: auto;
 		margin-right: auto;
 		border: 1px solid #444444;

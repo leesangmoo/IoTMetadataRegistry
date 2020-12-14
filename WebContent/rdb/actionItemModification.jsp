@@ -13,11 +13,12 @@
 	DBManager dbm = new DBManager();
 	dbm.connect();
 	DeviceCommon dc = new DeviceCommon();
-
-	dc.setmodel_name(request.getParameter("model1"));
-	dc.setDevice_type(request.getParameter("dv1"));
-	dc.setManufacturer(request.getParameter("manufac1"));
-	dc.setCategory(request.getParameter("cate1"));
+	
+	dc.setId(id);
+	dc.setmodel_name(request.getParameter("model_name"));
+	dc.setDevice_type(request.getParameter("device_type"));
+	dc.setManufacturer(request.getParameter("manufacturer"));
+	dc.setCategory(request.getParameter("category"));
 	dbm.updateGlobalList(dc);
 	//dbm.disconnect();
 %>

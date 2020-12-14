@@ -1,6 +1,6 @@
 package structures.mysql;
 
-import com.sun.jmx.snmp.Timestamp;
+//import com.sun.jmx.snmp.Timestamp;
 
 public class DeviceCommon {
 	private int id;

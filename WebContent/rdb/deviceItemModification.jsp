@@ -101,7 +101,7 @@
 		</div>
 		<div class = "DeviceInfo">
 			<h2>Item id : <%= dc.getId() %> </h2>
-			<h2 style = "text-align: left;">Global Metadata</h2>
+			<h2 style = "text-align: left;">Common Metadata</h2>
 			<table>
 				<tr>
 					<th>Item id</th>

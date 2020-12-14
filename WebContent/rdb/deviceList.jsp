@@ -25,7 +25,7 @@
   	  	border-collapse: collapse; 
     }
 	table {
-		width: 103%;
+		width: 106%;
 		margin-left: auto;
 		margin-right: auto;
 		border: 1px solid #444444;
@@ -42,7 +42,7 @@
   		text-align:center;
   	}
   	.MenuBar {
-  		width:100%; height:100%; background:blue;
+  		width:103%; height:100%; background:blue;
   		float:center; padding:15px;
   		font-size:20px; color:white; font-weight:bold; text-decoration:none;
   		text-align:center;
@@ -75,7 +75,7 @@
 			 <button type="button" onclick="location.href='deviceRegistration.jsp'">디바이스 등록</button>
 			 <button type="button" onclick="location.href='deviceList.jsp'">디바이스 목록</button>
 	</div>
-		<table id="tb1" width="100%" border="1">
+		<table>
 				<tr>
 					<th>Device id</th>
 					<th>Device name</th>
